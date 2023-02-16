@@ -1,0 +1,9 @@
+td.handle {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
+    width: 55px !important;
+}
+
+.handle i {
+    font-size: 25px;
+}

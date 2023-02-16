@@ -1,0 +1,7 @@
+html {
+    height: 100vh;
+}
+
+.form-group input {
+    padding-left: 10px !important;
+}

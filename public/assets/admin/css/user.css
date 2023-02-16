@@ -1,0 +1,59 @@
+.table-filter select {
+    display: inline-block;
+    width: 75px;
+    border: 0 none;
+}
+
+.card {
+    width: 100%;
+}
+
+.table-filter div, .table-responsive .row {
+    margin-right: unset !important;
+    margin-left: unset !important;
+}
+
+.text-filter {
+    float: right;
+    text-align: right;
+}
+
+.filter {
+    margin-left: 0.5em;
+    display: inline-block;
+    width: auto;
+    border: 0 none;
+}
+
+.datatable-info {
+    padding: 0 !important;
+}
+
+.datatable-links {
+    padding-right: 0 !important;
+}
+
+.datatable-links nav {
+    text-align: right;
+}
+
+.pagination {
+    justify-content: flex-end;
+}
+
+.page-link {
+    line-height: 0.75 !important;
+}
+
+td.expired {
+    background-color: red;
+    color: white;
+}
+
+td.about-expire {
+    background-color: yellow;
+}
+
+td.normal {
+    background-color: lightgreen;
+}
