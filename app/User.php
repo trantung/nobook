@@ -28,6 +28,8 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    const AVATAR_DIR = 'images/users';
+
     /**
      * The attributes that should be cast to native types.
      *
@@ -36,4 +38,13 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getAvatarAttribute($value)
+    {
+        if (! $value) {
+            return asset("assets/admin/images/default.jpg");
+        }
+
+        return implode('/', [url(''), 'storage', self::AVATAR_DIR, $value]);
+    }
 }
