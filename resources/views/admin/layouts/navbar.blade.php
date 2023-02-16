@@ -5,7 +5,7 @@
             <span class="logo-compact"><img src="{{ asset('assets/admin/images/logo-compact.png') }}"
                     alt=""></span>
             <span class="brand-title" style="color: white; font-weight: bold; font-size: 25px;">
-                Resume Gate
+                Nobook
                 {{-- <img src="{{ asset('assets/admin/images/logo-text.png') }}" alt=""> --}}
             </span>
         </a>
@@ -30,7 +30,7 @@
                     <div class="drop-down dropdown-profile animated fadeIn dropdown-menu">
                         <div class="dropdown-content-body">
                             <ul>
-                                <li><a href="{{ route('admin.logout') }}"><i class="icon-key"></i>
+                                <li><a href="{{ route('admin.auth.logout') }}"><i class="icon-key"></i>
                                         <span>Logout</span></a></li>
                             </ul>
                         </div>
