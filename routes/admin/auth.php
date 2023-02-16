@@ -14,7 +14,7 @@ Route::group(['namespace' => 'Auth'], function () {
     ]);
 
     Route::group(['middleware' => 'auth:admin'], function () {
-        Route::post('logout', [
+        Route::get('logout', [
             'as' => 'admin.auth.logout',
             'uses' => 'LoginController@logout'
         ]);
