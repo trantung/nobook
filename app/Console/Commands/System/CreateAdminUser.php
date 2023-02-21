@@ -42,11 +42,15 @@ class CreateAdminUser extends Command
         $email = 'admin@nobook.asia';
         $password = 'admin@123';
         User::query()
-            ->updateOrCreate([
-                'name' => 'Admin',
-                'email' => 'admin@nobook.asia',
-                'password' => bcrypt('admin@123'),
-            ]);
+            ->updateOrCreate(
+                [
+                    'email' => 'admin@nobook.asia',
+                ],
+                [
+                    'name' => $name,
+                    'password' => bcrypt('admin@123'),
+                ]
+            );
 
         $this->info('Admin created!');
         $this->info("Email: {$email}");

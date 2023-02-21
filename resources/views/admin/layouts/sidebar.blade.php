@@ -1,12 +1,12 @@
 <div class="nk-sidebar">
     <div class="nk-nav-scroll">
         <ul class="metismenu" id="menu">
-                <li class="nav-label">Dashboard</li>
-                <li class="nav-menu">
-                    <a href="{{ route('admin.dashboard') }}" aria-expanded="false">
-                        <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                    </a>
-                </li>
+            <li class="nav-label">Dashboard</li>
+            <li class="nav-menu">
+                <a href="{{ route('admin.dashboard') }}" aria-expanded="false">
+                    <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                </a>
+            </li>
 {{--            @if(is_admin() || is_employer())--}}
 {{--                <li class="nav-label">CVs</li>--}}
 {{--                <li class="nav-menu">--}}
@@ -15,14 +15,12 @@
 {{--                    </a>--}}
 {{--                </li>--}}
 {{--            @endif--}}
-{{--            @if(is_admin()|| is_tech())--}}
-{{--                <li class="nav-label">CV Templates</li>--}}
-{{--                <li class="nav-menu">--}}
-{{--                    <a href="{{ route('admin.template.index') }}" aria-expanded="false">--}}
-{{--                        <i class="icon-folder-alt menu-icon"></i><span class="nav-text">Templates</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endif--}}
+{{--            <li class="nav-label">Quản lý danh sách lớp</li>--}}
+            <li class="nav-menu">
+                <a href="{{ route('admin.classes.index') }}" aria-expanded="false">
+                    <i class="icon-folder-alt menu-icon"></i><span class="nav-text">Quản lý danh sách lớp</span>
+                </a>
+            </li>
 {{--            @if(is_admin())--}}
 {{--                <li class="nav-label">Packages</li>--}}
 {{--                <li class="nav-menu">--}}

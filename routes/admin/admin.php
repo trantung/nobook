@@ -17,7 +17,10 @@ require 'auth.php';
 Route::redirect('', 'admin/dashboard');
 Route::group(['middleware' => 'auth:admin'], function () {
     Route::get('dashboard', [
-        'as' => 'admin.dashboard',
+        'as' => 'dashboard',
         'uses' => 'DashboardController@index'
     ]);
+
+    Route::resource('classes', 'ClassController')
+        ->parameter('class', 'id');
 });
