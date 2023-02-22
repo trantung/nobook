@@ -3,18 +3,35 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Services\Admin\ClassService;
 use Illuminate\Http\Request;
 
 class ClassController extends Controller
 {
     /**
+     * @var ClassService
+     */
+    protected $classService;
+
+    /**
+     * ClassController constructor.
+     * @param ClassService $classService
+     */
+    public function __construct(ClassService $classService)
+    {
+        $this->classService = $classService;
+    }
+
+    /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        dd(123);
+        $data = $this->classService->index($request);
+
+        return view('admin.classes.index', $data);
     }
 
     /**
@@ -75,11 +92,25 @@ class ClassController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  int  $class
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($class)
     {
-        //
+        return $this->classService->destroy($class);
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function reorder(Request $request)
+    {
+        return $this->classService->reorder($request);
+    }
+
+    public function updateStatus(Request $request, int $class)
+    {
+        return $this->classService->updateStatus($class);
     }
 }

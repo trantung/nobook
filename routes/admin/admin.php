@@ -21,6 +21,15 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'uses' => 'DashboardController@index'
     ]);
 
-    Route::resource('classes', 'ClassController')
-        ->parameter('class', 'id');
+    Route::resource('classes', 'ClassController');
+    Route::group(['prefix' => 'classes', 'as' => 'classes.'], function () {
+        Route::post('action/reorder', [
+            'as' => 'reorder',
+            'uses' => 'ClassController@reorder'
+        ]);
+        Route::post('{class}/change-status', [
+            'as' => 'change_status',
+            'uses' => 'ClassController@updateStatus'
+        ]);
+    });
 });

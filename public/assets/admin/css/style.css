@@ -14709,3 +14709,9 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
   object-fit: cover;
   object-position: top;
 }
+
+.custom-active-icon {
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+}
