@@ -21,6 +21,7 @@ Route::group(['middleware' => 'auth:admin'], function () {
         'uses' => 'DashboardController@index'
     ]);
 
+    // class routes
     Route::resource('classes', 'ClassController');
     Route::group(['prefix' => 'classes', 'as' => 'classes.'], function () {
         Route::post('action/reorder', [
@@ -30,6 +31,15 @@ Route::group(['middleware' => 'auth:admin'], function () {
         Route::post('{class}/change-status', [
             'as' => 'change_status',
             'uses' => 'ClassController@updateStatus'
+        ]);
+    });
+
+    // teacher routes
+    Route::resource('teachers', 'TeacherController');
+    Route::group(['prefix' => 'teachers', 'as' => 'teachers.'], function () {
+        Route::post('{id}/change-status', [
+            'as' => 'change_status',
+            'uses' => 'TeacherController@updateStatus'
         ]);
     });
 });

@@ -116,3 +116,45 @@ function makeRecordCanDelete(containerClass = '.destroy') {
         })
     });
 }
+
+function navigate(callback) {
+    $('.pagination a').off('click');
+    $('.pagination a').on('click', function (e) {
+        e.preventDefault();
+        let page = $(this).attr('href').split('page=')[1];
+        let perpage = $('.perpage').val();
+        callback(page, perpage);
+    });
+}
+
+function changePerpage(callback) {
+    $('.perpage').off('change');
+    $('.perpage').on('change', function () {
+        let page = 1;
+        let perpage = $(this).val();
+        callback(page, perpage);
+    });
+}
+
+function search(callback) {
+    $('.filter').off('keyup');
+    $('.filter').on('keyup', _.debounce(function () {
+        let page = 1;
+        let perpage = $('.perpage').val();
+        callback(page, perpage);
+    }, 500));
+}
+
+function searchButton(callback) {
+    $(document).off('keyup');
+    $(document).on('keyup', function (e) {
+        if (e.keyCode == 13) {
+            $('.search-button').click();
+        }
+    });
+    $('.search-button').off('click');
+    $('.search-button').on('click', function () {
+        callback(1, $('.perpage').val());
+    });
+}
+

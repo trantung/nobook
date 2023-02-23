@@ -116,6 +116,11 @@ class ClassController extends Controller
         return $this->classService->reorder($request);
     }
 
+    /**
+     * @param Request $request
+     * @param int $class
+     * @return bool
+     */
     public function updateStatus(Request $request, int $class)
     {
         return $this->classService->updateStatus($class);
