@@ -78,10 +78,10 @@
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
 <script>
     @if(Session::has('success'))
-        toastr.success({{ Session::get('success') }}, successTitle, {});
+        toastr.success('{{ Session::get('success') }}', successTitle);
     @endif
     @if($errors->any())
-        toastr.error({{ $errors->first() }}, failTitle, {});
+        toastr.error('{{ $errors->first() }}', failTitle);
     @endif
 </script>
 <input hidden class="active-page" value="{{ $activePage ?? '' }}">

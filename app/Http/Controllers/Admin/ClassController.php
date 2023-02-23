@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Classes\StoreRequest;
+use App\Http\Requests\Classes\UpdateRequest;
 use App\Services\Admin\ClassService;
 use Illuminate\Http\Request;
 
@@ -45,14 +47,14 @@ class ClassController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param StoreRequest $request
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $id = $this->classService->store($request);
+
+        return redirect()->route('admin.classes.edit', $id)->with('success', 'Tạo mới thành công!');
     }
 
     /**
@@ -74,26 +76,31 @@ class ClassController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = $this->classService->edit((int) $id);
+
+        return view('admin.classes.edit', $data);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param  UpdateRequest  $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $updated = $this->classService->update($request, $id);
+
+        return redirect()->back()->with('success', 'Cập nhật thành công!');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $class
-     * @return \Illuminate\Http\Response
+     * @param int $class
+     * @return boolean
+     * @throws \Exception
      */
     public function destroy($class)
     {
