@@ -8,7 +8,7 @@
                 <th class="text-center">Tên lớp học</th>
                 <th class="text-center">Cấp học</th>
                 <th class="text-center">Mã lớp học</th>
-                <th class="text-center">Trạng thái</th>
+                <th class="text-center">Trạng thái hiển thị</th>
                 <th class="text-center" style="width: 10%">Thao tác</th>
             </tr>
             </thead>

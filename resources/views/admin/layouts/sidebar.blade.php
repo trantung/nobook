@@ -17,7 +17,7 @@
 {{--            @endif--}}
 {{--            <li class="nav-label">Quản lý danh sách lớp</li>--}}
             <li class="nav-menu">
-                <a href="{{ route('admin.classes.index') }}" aria-expanded="false">
+                <a href="{{ route('admin.classes.index') }}" aria-expanded="false" class="classes-menu">
                     <i class="icon-folder-alt menu-icon"></i><span class="nav-text">Quản lý danh sách lớp</span>
                 </a>
             </li>

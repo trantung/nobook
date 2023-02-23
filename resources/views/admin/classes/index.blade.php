@@ -7,7 +7,7 @@
                     <div class="card-body">
                         <div style="display: flex;justify-content: space-between;" class="mb-4">
                             <h4 class="card-title">Danh sách lớp</h4>
-                            <button class="btn mb-1 btn-primary add-category">Thêm mới</button>
+                            <a class="btn mb-1 btn-primary add-category" href="{{ route('admin.classes.create') }}">Thêm mới</a>
                         </div>
                         <div class="table-data" data-order="{{ route('admin.classes.reorder') }}">
                             @include('admin.classes.datatable')
