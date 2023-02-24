@@ -28,7 +28,7 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="table-data" data-link="{{ route('admin.subjects.index') }}">
+                        <div class="table-data" data-link="{{ route('admin.subjects.index') }}" data-order="{{ route('admin.subjects.reorder') }}">
                             @include('admin.subjects.datatable')
                         </div>
                     </div>
