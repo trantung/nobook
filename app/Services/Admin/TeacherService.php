@@ -2,13 +2,18 @@
 
 namespace App\Services\Admin;
 
+use App\Http\Requests\Teachers\StoreRequest;
+use App\Http\Requests\Teachers\UpdateRequest;
 use App\Libs\Service\BaseService;
+use App\Libs\Traits\HandleUpload;
 use App\Models\Teacher;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class TeacherService extends BaseService
 {
+    use HandleUpload;
+
     /**
      * @var int
      */
@@ -28,10 +33,47 @@ class TeacherService extends BaseService
         }
 
         $teachers = $query
-            ->orderByDesc('created_at')
+            ->orderByDesc('id')
             ->paginate($paginate);
 
         return compact('teachers');
+    }
+
+    /**
+     * @param StoreRequest $request
+     * @return int
+     */
+    public function store(StoreRequest $request)
+    {
+        /** @var Teacher $teacher */
+        $teacher = Teacher::query()->create($this->prepareData($request));
+
+        return $teacher->id;
+    }
+
+    /**
+     * @param int $id
+     * @return array
+     */
+    public function edit(int $id): array
+    {
+        /** @var Teacher $teacher */
+        $teacher = Teacher::query()->findOrFail($id);
+
+        return compact('teacher');
+    }
+
+    /**
+     * @param UpdateRequest $request
+     * @param int $id
+     * @return bool
+     */
+    public function update(UpdateRequest $request, int $id)
+    {
+        /** @var Teacher $teacher */
+        $teacher = Teacher::query()->findOrFail($id);
+
+        return $teacher->update($this->prepareData($request));
     }
 
     /**
@@ -54,5 +96,20 @@ class TeacherService extends BaseService
     public function updateStatus(int $id)
     {
         return $this->updateStatusData(new Teacher(), $id);
+    }
+
+    /**
+     * @param StoreRequest|UpdateRequest $request
+     * @return array
+     */
+    protected function prepareData(Request $request): array
+    {
+        $attributes = $request->all();
+        if ($request->file('avatar')) {
+            $attributes['avatar'] = $this->uploadImage($request->file('avatar'), storage_path('app/public/'.Teacher::AVATAR_DIR));
+        }
+        $attributes['is_public'] = $request->is_public ? 1 : 0;
+
+        return $attributes;
     }
 }

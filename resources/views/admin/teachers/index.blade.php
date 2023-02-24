@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['title' => 'Danh sách lớp', 'activePage' => 'teachers-menu-index'])
+@extends('admin.layouts.main', ['title' => 'Danh sách lớp', 'activePage' => 'teachers-menu'])
 @section('content')
     <div class="container-fluid">
         <div class="row">

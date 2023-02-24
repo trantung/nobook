@@ -17,22 +17,14 @@
 {{--            @endif--}}
 {{--            <li class="nav-label">Quản lý danh sách lớp</li>--}}
             <li class="nav-menu">
-                <a href="javascript:void()" aria-expanded="false" class="has-arrow">
+                <a href="{{ route('admin.classes.index') }}" aria-expanded="false" class="classes-menu">
                     <i class="icon-folder-alt menu-icon"></i><span class="nav-text">Quản lý lớp học</span>
                 </a>
-                <ul aria-expanded="false">
-                    <li><a href="{{ route('admin.classes.create') }}" class="classes-menu-create">Thêm mới</a></li>
-                    <li><a href="{{ route('admin.classes.index') }}" class="classes-menu-index">Danh sách</a></li>
-                </ul>
             </li>
             <li class="nav-menu">
-                <a href="{{ route('admin.teachers.index') }}" aria-expanded="false">
+                <a href="{{ route('admin.teachers.index') }}" aria-expanded="false" class="teachers-menu">
                     <i class="icon-briefcase menu-icon"></i><span class="nav-text">Quản lý giáo viên</span>
                 </a>
-                <ul aria-expanded="false">
-{{--                    <li><a href="{{ route('admin.classes.create') }}" class="classes-menu-create">Thêm mới</a></li>--}}
-                    <li><a href="{{ route('admin.teachers.index') }}" class="teachers-menu-index">Danh sách</a></li>
-                </ul>
             </li>
 
 {{--            <li class="nav-label">Users</li>--}}

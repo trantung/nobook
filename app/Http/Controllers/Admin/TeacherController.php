@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Teachers\StoreRequest;
+use App\Http\Requests\Teachers\UpdateRequest;
 use App\Services\Admin\TeacherService;
 use Illuminate\Http\Request;
 
@@ -44,18 +46,20 @@ class TeacherController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.teachers.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param StoreRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreRequest $request)
     {
-        //
+        $id = $this->teacherService->store($request);
+
+        return redirect()->route('admin.teachers.edit', $id)->with('success', 'Tạo mới thành công!');
     }
 
     /**
@@ -77,7 +81,9 @@ class TeacherController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = $this->teacherService->edit((int) $id);
+
+        return view('admin.teachers.edit', $data);
     }
 
     /**
@@ -87,9 +93,11 @@ class TeacherController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(UpdateRequest $request, $id)
     {
-        //
+        $updated = $this->teacherService->update($request, (int) $id);
+
+        return redirect()->back()->with('success', 'Cập nhật thành công!');
     }
 
     /**
