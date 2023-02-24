@@ -30,7 +30,11 @@ class ClassService extends BaseService
     public function store(StoreRequest $request)
     {
         /** @var ClassModel $class */
-        $class = ClassModel::query()->create($this->prepareData($request->all()));
+        $class = ClassModel::query()->create(
+            array_merge($this->prepareData($request->all()), [
+                'order' => ClassModel::query()->max('order') ?? 0 + 1
+            ])
+        );
 
         return $class->id;
     }
