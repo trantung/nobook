@@ -1,12 +1,12 @@
 <div class="nk-sidebar">
     <div class="nk-nav-scroll">
         <ul class="metismenu" id="menu">
-                <li class="nav-label">Dashboard</li>
-                <li class="nav-menu">
-                    <a href="{{ route('admin.dashboard') }}" aria-expanded="false">
-                        <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
-                    </a>
-                </li>
+            <li class="nav-label">Dashboard</li>
+            <li class="nav-menu">
+                <a href="{{ route('admin.dashboard') }}" aria-expanded="false">
+                    <i class="icon-speedometer menu-icon"></i><span class="nav-text">Dashboard</span>
+                </a>
+            </li>
 {{--            @if(is_admin() || is_employer())--}}
 {{--                <li class="nav-label">CVs</li>--}}
 {{--                <li class="nav-menu">--}}
@@ -15,45 +15,31 @@
 {{--                    </a>--}}
 {{--                </li>--}}
 {{--            @endif--}}
-{{--            @if(is_admin()|| is_tech())--}}
-{{--                <li class="nav-label">CV Templates</li>--}}
-{{--                <li class="nav-menu">--}}
-{{--                    <a href="{{ route('admin.template.index') }}" aria-expanded="false">--}}
-{{--                        <i class="icon-folder-alt menu-icon"></i><span class="nav-text">Templates</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endif--}}
-{{--            @if(is_admin())--}}
-{{--                <li class="nav-label">Packages</li>--}}
-{{--                <li class="nav-menu">--}}
-{{--                    <a href="{{ route('admin.package.index') }}" aria-expanded="false">--}}
-{{--                        <i class="icon-badge menu-icon"></i><span class="nav-text">Packages</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endif--}}
-{{--            @if(is_admin())--}}
-{{--                <li class="nav-label">Categories</li>--}}
-{{--                <li class="nav-menu">--}}
-{{--                    <a href="{{ route('admin.category.index') }}" aria-expanded="false">--}}
-{{--                        <i class="icon-tag menu-icon"></i><span class="nav-text">Categories</span>--}}
-{{--                    </a>--}}
-{{--                </li>--}}
-{{--            @endif--}}
-{{--            @if(is_admin() || is_employer())--}}
-{{--                <li class="nav-label">Users</li>--}}
-{{--                <li class="nav-menu">--}}
-{{--                    <a class="has-arrow" href="javascript:void()" aria-expanded="false">--}}
-{{--                        <i class="icon-people menu-icon"></i><span class="nav-text">User Management</span>--}}
-{{--                    </a>--}}
-{{--                    <ul aria-expanded="false">--}}
-{{--                        <li><a href="{{ route('admin.member.index') }}" class="member-menu">Members</a></li>--}}
-{{--                        @if(is_admin()) --}}
-{{--                            <li><a href="{{ route('admin.admin.index') }}" class="admin-menu">Admins</a></li>--}}
-{{--                            <li><a href="{{ route('admin.employee.index') }}" class="employee-menu">Employers</a></li>--}}
-{{--                        @endif--}}
-{{--                    </ul>--}}
-{{--                </li>--}}
-{{--            @endif--}}
+{{--            <li class="nav-label">Quản lý danh sách lớp</li>--}}
+            <li class="nav-menu">
+                <a href="{{ route('admin.classes.index') }}" aria-expanded="false" class="classes-menu">
+                    <i class="icon-folder-alt menu-icon"></i><span class="nav-text">Quản lý lớp học</span>
+                </a>
+            </li>
+            <li class="nav-menu">
+                <a href="{{ route('admin.teachers.index') }}" aria-expanded="false" class="teachers-menu">
+                    <i class="icon-briefcase menu-icon"></i><span class="nav-text">Quản lý giáo viên</span>
+                </a>
+            </li>
+
+{{--            <li class="nav-label">Users</li>--}}
+{{--            <li class="nav-menu">--}}
+{{--                <a class="has-arrow" href="javascript:void()" aria-expanded="false">--}}
+{{--                    <i class="icon-people menu-icon"></i><span class="nav-text">User Management</span>--}}
+{{--                </a>--}}
+{{--                <ul aria-expanded="false">--}}
+{{--                    <li><a href="{{ route('admin.member.index') }}" class="member-menu">Members</a></li>--}}
+{{--                    @if(is_admin())--}}
+{{--                        <li><a href="{{ route('admin.admin.index') }}" class="admin-menu">Admins</a></li>--}}
+{{--                        <li><a href="{{ route('admin.employee.index') }}" class="employee-menu">Employers</a></li>--}}
+{{--                    @endif--}}
+{{--                </ul>--}}
+{{--            </li>--}}
 {{--            <li class="mega-menu mega-menu-sm">--}}
 {{--                <a class="has-arrow" href="javascript:void()" aria-expanded="false">--}}
 {{--                    <i class="icon-globe-alt menu-icon"></i><span class="nav-text">Layouts</span>--}}

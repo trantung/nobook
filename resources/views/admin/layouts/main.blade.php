@@ -19,6 +19,8 @@
     <!-- Custom Stylesheet -->
     <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/jasny-bootstrap.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/js/toastr/css/toastr.min.css') }}" rel="stylesheet">
+    <link src="{{ asset('assets/admin/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.min.css" integrity="sha512-Yn5Z4XxNnXXE8Y+h/H1fwG/2qax2MxG9GeUOWL6CYDCSp4rTFwUpOZ1PS6JOuZaPBawASndfrlWYx8RGKgILhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @stack('css')
 </head>
@@ -33,6 +35,7 @@
         @include('admin.layouts.navbar')
         @include('admin.layouts.sidebar')
         <div class="content-body">
+            @yield('breadcrumb')
             @yield('content')
         </div>
     </div>
@@ -66,10 +69,21 @@
 
 <script src="{{ asset('assets/admin/js/dashboard/dashboard-1.js') }}"></script>
 <script src="{{ asset('assets/admin/js/jasny-bootstrap.min.js') }}"></script>
+<script src="{{ asset('assets/admin/js/toastr/js/toastr.min.js') }}"></script>
+<script src="{{ asset('assets/admin/js/toastr/js/toastr.init.js') }}"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.min.js"></script>
+<script src="{{ asset('assets/admin/plugins/select2/js/select2.full.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/main.js') }}"></script>
 <script src="{{ asset('assets/admin/js/accounting.min.js') }}"></script>
 <script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.min.js"></script>
+<script>
+    @if(Session::has('success'))
+        toastr.success('{{ Session::get('success') }}', successTitle);
+    @endif
+    @if($errors->any())
+        toastr.error('{{ $errors->first() }}', failTitle);
+    @endif
+</script>
 <input hidden class="active-page" value="{{ $activePage ?? '' }}">
 <script>
     $(document).ready(function () {

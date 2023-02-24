@@ -9,3 +9,9 @@ if (!function_exists('get_logged_in_user')) {
         return Auth::user();
     }
 }
+
+if (! function_exists('log_exception')) {
+    function log_exception(Exception $exception) {
+        \Log::error($exception);
+    }
+}
