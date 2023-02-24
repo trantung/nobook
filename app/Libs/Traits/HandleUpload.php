@@ -29,7 +29,7 @@ trait HandleUpload
      * @param string $uniqueName
      * @return string
      */
-    protected function uploadImage($file, string $destinationPath, $uniqueName = 'topcv'): string
+    protected function uploadImage($file, string $destinationPath, $uniqueName = 'nobook'): string
     {
         $this->ensureDestinationDirectoryExists($destinationPath);
 
@@ -42,6 +42,16 @@ trait HandleUpload
         }
 
         return false;
+    }
+
+    /**
+     * @param string $filePath
+     */
+    protected function removeImage(string $filePath = '')
+    {
+        if ($filePath && file_exists($filePath)) {
+            unlink($filePath);
+        }
     }
 
     /**

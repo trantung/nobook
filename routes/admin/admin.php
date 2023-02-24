@@ -42,4 +42,17 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'uses' => 'TeacherController@updateStatus'
         ]);
     });
+
+    // subject routes
+    Route::resource('subjects', 'SubjectController');
+    Route::group(['prefix' => 'subjects', 'as' => 'subjects.'], function () {
+        Route::post('action/reorder', [
+            'as' => 'reorder',
+            'uses' => 'SubjectController@reorder'
+        ]);
+        Route::post('{subject}/change-status', [
+            'as' => 'change_status',
+            'uses' => 'SubjectController@updateStatus'
+        ]);
+    });
 });
