@@ -2,18 +2,15 @@
 
 namespace App\Services\Admin;
 
-use App\Http\Requests\Teachers\StoreRequest;
-use App\Http\Requests\Teachers\UpdateRequest;
+use App\Http\Requests\Subjects\StoreRequest;
+use App\Http\Requests\Subjects\UpdateRequest;
 use App\Libs\Service\BaseService;
-use App\Libs\Traits\HandleUpload;
-use App\Models\Teacher;
+use App\Models\Subject;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
-class TeacherService extends BaseService
+class SubjectService extends BaseService
 {
-    use HandleUpload;
-
     /**
      * @var int
      */
@@ -22,21 +19,21 @@ class TeacherService extends BaseService
     public function index(Request $request)
     {
         $paginate = $request->perpage ?? $this->perPage;
-        $query = Teacher::query();
+        $query = Subject::query();
 
         if ($request->text) {
             $query->where(function (Builder $builder) use ($request) {
                 $text = '%'.$request->text.'%';
                 $builder->where('name', 'like', $text)
-                    ->orWhere('label', 'like', $text);
+                    ->orWhere('code', 'like', $text);
             });
         }
 
-        $teachers = $query
-            ->orderByDesc('id')
+        $subjects = $query
+            ->orderByDesc('order')
             ->paginate($paginate);
 
-        return compact('teachers');
+        return compact('subjects');
     }
 
     /**
@@ -45,22 +42,26 @@ class TeacherService extends BaseService
      */
     public function store(StoreRequest $request)
     {
-        /** @var Teacher $teacher */
-        $teacher = Teacher::query()->create($this->prepareData($request));
+        /** @var Subject $subject */
+        $subject = Subject::query()->create(
+            array_merge($this->prepareData($request), [
+                'order' => (Subject::query()->max('order') ?? 0) + 1
+            ])
+        );
 
-        return $teacher->id;
+        return $subject->id;
     }
 
     /**
      * @param int $id
      * @return array
      */
-    public function edit(int $id): array
+    public function edit(int $id)
     {
-        /** @var Teacher $teacher */
-        $teacher = Teacher::query()->findOrFail($id);
+        /** @var Subject $subject */
+        $subject = Subject::query()->findOrFail($id);
 
-        return compact('teacher');
+        return compact('subject');
     }
 
     /**
@@ -70,10 +71,19 @@ class TeacherService extends BaseService
      */
     public function update(UpdateRequest $request, int $id)
     {
-        /** @var Teacher $teacher */
-        $teacher = Teacher::query()->findOrFail($id);
+        /** @var Subject $subject */
+        $subject = Subject::query()->findOrFail($id);
 
-        return $teacher->update($this->prepareData($request));
+        return $subject->update($this->prepareData($request));
+    }
+
+    /**
+     * @param Request $request
+     * @return bool
+     */
+    public function reorder(Request $request)
+    {
+        return $this->reorderData(new Subject(), (array) $request->sort);
     }
 
     /**
@@ -83,9 +93,8 @@ class TeacherService extends BaseService
      */
     public function destroy(int $id)
     {
-        /** @var Teacher $record */
-        $record = Teacher::query()->findOrFail($id);
-        $this->removeImage(storage_path('app/public/'.Teacher::AVATAR_DIR).'/'.$record->avatar);
+        /** @var Subject $record */
+        $record = Subject::query()->findOrFail($id);
 
         return $record->delete();
     }
@@ -96,7 +105,7 @@ class TeacherService extends BaseService
      */
     public function updateStatus(int $id)
     {
-        return $this->updateStatusData(new Teacher(), $id);
+        return $this->updateStatusData(new Subject(), $id);
     }
 
     /**
@@ -106,9 +115,6 @@ class TeacherService extends BaseService
     protected function prepareData(Request $request): array
     {
         $attributes = $request->all();
-        if ($request->file('avatar')) {
-            $attributes['avatar'] = $this->uploadImage($request->file('avatar'), storage_path('app/public/'.Teacher::AVATAR_DIR));
-        }
         $attributes['is_public'] = $request->is_public ? 1 : 0;
 
         return $attributes;

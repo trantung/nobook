@@ -32,7 +32,7 @@ class ClassService extends BaseService
         /** @var ClassModel $class */
         $class = ClassModel::query()->create(
             array_merge($this->prepareData($request->all()), [
-                'order' => (ClassModel::query()->max('order') ?? 0 )+ 1
+                'order' => (ClassModel::query()->max('order') ?? 0) + 1
             ])
         );
 

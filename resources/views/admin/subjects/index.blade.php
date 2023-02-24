@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['title' => 'Danh sách lớp', 'activePage' => 'teachers-menu'])
+@extends('admin.layouts.main', ['title' => 'Danh sách môn học', 'activePage' => 'subject-menu'])
 @section('content')
     <div class="container-fluid">
         <div class="row">
@@ -6,8 +6,8 @@
                 <div class="card">
                     <div class="card-body">
                         <div style="display: flex;justify-content: space-between;" class="mb-4">
-                            <h4 class="card-title">Danh sách giáo viên</h4>
-                            <a class="btn mb-1 btn-primary add-category" href="{{ route('admin.teachers.create') }}">Thêm mới</a>
+                            <h4 class="card-title">Danh sách môn học</h4>
+                            <a class="btn mb-1 btn-primary add-category" href="{{ route('admin.subjects.create') }}">Thêm mới</a>
                         </div>
                         <div class="row table-filter">
                             <div class="col-sm-12 col-md-6">
@@ -28,8 +28,8 @@
                                 </label>
                             </div>
                         </div>
-                        <div class="table-data" data-link=""{{ route('admin.teachers.index') }}>
-                            @include('admin.teachers.datatable')
+                        <div class="table-data" data-link="{{ route('admin.subjects.index') }}">
+                            @include('admin.subjects.datatable')
                         </div>
                     </div>
                 </div>
@@ -44,5 +44,5 @@
 @endpush
 
 @push('js')
-    <script src="{{ asset('assets/admin/js/teacher.index.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/subject.index.js') }}"></script>
 @endpush

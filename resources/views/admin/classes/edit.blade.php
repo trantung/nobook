@@ -43,7 +43,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="form-group">
-                                        <label>Tên lớp học <span class="text-danger">*</span></label>
+                                        <label>Cấp học <span class="text-danger">*</span></label>
                                         <select type="text" name="level" required class="form-control input-default">
                                             @foreach(\App\Models\ClassModel::LEVELS as $key => $value)
                                                 <option @if($class->level == $value) selected @endif value="{{ $value }}">{{ $key }}</option>
