@@ -6,6 +6,14 @@ use Illuminate\Database\Eloquent\Model;
 
 class BaseModel extends Model
 {
+    public function __construct(array $attributes = [])
+    {
+        if ($this->connection == 'moodle') {
+            $this->table = env('MOODLE_TABLE_PREFIX', 'mdl') . '_' . $this->table;
+        }
+        parent::__construct($attributes);
+    }
+
     /**
      * @var string
      */

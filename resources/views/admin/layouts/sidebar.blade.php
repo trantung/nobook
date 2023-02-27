@@ -17,6 +17,11 @@
 {{--            @endif--}}
 {{--            <li class="nav-label">Quản lý danh sách lớp</li>--}}
             <li class="nav-menu">
+                <a href="{{ route('admin.courses.index') }}" aria-expanded="false" class="courses-menu">
+                    <i class="icon-book-open menu-icon"></i><span class="nav-text">Quản lý khóa học</span>
+                </a>
+            </li>
+            <li class="nav-menu">
                 <a href="{{ route('admin.subjects.index') }}" aria-expanded="false" class="subjects-menu">
                     <i class="icon-support menu-icon"></i><span class="nav-text">Quản lý môn học</span>
                 </a>

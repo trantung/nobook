@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\ClassObserver;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -55,6 +56,12 @@ class ClassModel extends BaseModel
         # [/auto-gen-attribute]
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(ClassObserver::class);
+    }
+
     const LEVELS = [
         'Cấp 1' => 1,
         'Cấp 2' => 2,
@@ -72,5 +79,10 @@ class ClassModel extends BaseModel
     public function getDisplayLevel(): string
     {
         return array_flip(self::LEVELS)[$this->level] ?? '';
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_class', 'course_class', 'class_id');
     }
 }

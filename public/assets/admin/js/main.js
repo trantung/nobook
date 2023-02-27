@@ -61,14 +61,20 @@ function makeItemCanUpdateStatus(containerClass = '.change-status') {
         e.preventDefault();
         let _this = $(this);
         const url = _this.data('url');
+        const data = {};
+        let column = _this.data('column');
+        if (column) {
+            data.column = column;
+        }
         $.ajax({
             url: url,
             method: 'POST',
+            data: data,
             success: function () {
                 if (_this.hasClass('icon-check')) {
-                    _this.removeClass('icon-check').addClass('icon-close');
+                    _this.removeClass('icon-check text-green').addClass('icon-close text-danger');
                 } else {
-                    _this.removeClass('icon-close').addClass('icon-check');
+                    _this.removeClass('icon-close text-danger').addClass('icon-check text-green');
                 }
                 toastr.success(defaultSuccessMess, successTitle);
             },

@@ -2,6 +2,8 @@
 
 namespace App\Models;
 
+use App\Observers\SubjectObserver;
+
 /**
  * Class Subject
  * @package App\Models
@@ -48,4 +50,15 @@ class Subject extends BaseModel
 		'is_public',
         # [/auto-gen-attribute]
     ];
+
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(SubjectObserver::class);
+    }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_subject');
+    }
 }

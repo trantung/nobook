@@ -16,11 +16,12 @@
     <!-- Chartist -->
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/chartist/css/chartist.min.css') }}">
     <link rel="stylesheet" href="{{ asset('assets/admin/plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css') }}">
+    <link href="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.0/css/select2.min.css" rel="stylesheet" />
     <!-- Custom Stylesheet -->
     <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/jasny-bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/js/toastr/css/toastr.min.css') }}" rel="stylesheet">
-    <link src="{{ asset('assets/admin/plugins/select2/css/select2.min.css') }}" rel="stylesheet">
+{{--    <link src="{{ asset('assets/admin/plugins/select2/css/select2.min.css') }}" rel="stylesheet">--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.min.css" integrity="sha512-Yn5Z4XxNnXXE8Y+h/H1fwG/2qax2MxG9GeUOWL6CYDCSp4rTFwUpOZ1PS6JOuZaPBawASndfrlWYx8RGKgILhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @stack('css')
 </head>
@@ -56,7 +57,7 @@
 <!-- Datamap -->
 <script src="{{ asset('assets/admin/plugins/d3v3/index.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/topojson/topojson.min.js') }}"></script>
-<script src="{{ asset('assets/admin/plugins/datamaps/datamaps.world.min.js') }}"></script>
+{{--<script src="{{ asset('assets/admin/plugins/datamaps/datamaps.world.min.js') }}"></script>--}}
 <!-- Morrisjs -->
 <script src="{{ asset('assets/admin/plugins/raphael/raphael.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/morris/morris.min.js') }}"></script>
@@ -67,7 +68,7 @@
 <script src="{{ asset('assets/admin/plugins/chartist/js/chartist.min.js') }}"></script>
 <script src="{{ asset('assets/admin/plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js') }}"></script>
 
-<script src="{{ asset('assets/admin/js/dashboard/dashboard-1.js') }}"></script>
+{{--<script src="{{ asset('assets/admin/js/dashboard/dashboard-1.js') }}"></script>--}}
 <script src="{{ asset('assets/admin/js/jasny-bootstrap.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/toastr/js/toastr.min.js') }}"></script>
 <script src="{{ asset('assets/admin/js/toastr/js/toastr.init.js') }}"></script>

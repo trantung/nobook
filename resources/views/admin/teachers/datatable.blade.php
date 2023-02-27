@@ -23,7 +23,7 @@
                     <td class="class-name text-center" style="cursor: pointer;">{{ $teacher->label ?? '' }}</td>
                     <td class="text-center class-is_public">
                         <i
-                            class="@if($teacher->is_public) icon-check @else icon-close @endif custom-active-icon change-status"
+                            class="@if($teacher->is_public) icon-check text-green @else icon-close text-danger @endif custom-active-icon change-status"
                             data-url="{{ route('admin.teachers.change_status', $teacher->id) }}"
                         ></i>
                     </td>

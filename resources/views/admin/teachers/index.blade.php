@@ -1,4 +1,14 @@
 @extends('admin.layouts.main', ['title' => 'Danh sách lớp', 'activePage' => 'teachers-menu'])
+@section('breadcrumb')
+    <div class="row page-titles mx-0">
+        <div class="col p-md-0">
+            <ol class="breadcrumb" style="float: unset !important;">
+                <li class="breadcrumb-item"><a href="javascript:void(0)">Dashboard</a></li>
+                <li class="breadcrumb-item"><a href="#">Quản lý danh sách giáo viên</a></li>
+            </ol>
+        </div>
+    </div>
+@endsection
 @section('content')
     <div class="container-fluid">
         <div class="row">
