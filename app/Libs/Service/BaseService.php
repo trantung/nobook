@@ -40,7 +40,7 @@ abstract class BaseService
         /** @var BaseModel $record */
         $record = $model::query()->findOrFail($id);
 
-        return $record->update([$column => $record->is_public ? 0 : 1]);
+        return $record->update([$column => $record->{$column} ? 0 : 1]);
     }
 
 }

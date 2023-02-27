@@ -69,3 +69,12 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('select').select2({
+                width: '100%'
+            });
+        });
+    </script>
+@endpush

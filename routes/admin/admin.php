@@ -55,4 +55,17 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'uses' => 'SubjectController@updateStatus'
         ]);
     });
+
+    // course routes
+    Route::resource('courses', 'CourseController');
+    Route::group(['prefix' => 'courses', 'as' => 'courses.'], function () {
+        Route::get('lms/list', [
+            'as' => 'lms_list',
+            'uses' => 'CourseController@lmsList'
+        ]);
+        Route::post('{course}/change-status', [
+            'as' => 'change_status',
+            'uses' => 'CourseController@updateStatus'
+        ]);
+    });
 });

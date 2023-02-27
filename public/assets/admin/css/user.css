@@ -1,7 +1,10 @@
 .table-filter select {
     display: inline-block;
-    width: 75px;
     border: 0 none;
+}
+
+.table-filter select.perpage {
+    width: 50px;
 }
 
 .card {

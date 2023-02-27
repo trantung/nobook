@@ -34,7 +34,7 @@
                         <td class="text-center class-level">{{ $class->getDisplayLevel() }}</td>
                         <td class="text-center class-is_public">
                             <i
-                                class="@if($class->is_public) icon-check @else icon-close @endif custom-active-icon change-status"
+                                class="@if($class->is_public) icon-check text-green @else icon-close text-danger @endif custom-active-icon change-status"
                                 data-url="{{ route('admin.classes.change_status', ['class' => $class->id]) }}"
                             ></i>
                         </td>

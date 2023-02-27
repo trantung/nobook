@@ -23,13 +23,17 @@ class SubjectController extends Controller
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\Response|array
      */
     public function index(Request $request)
     {
         $data = $this->subjectService->index($request);
 
         if ($request->ajax()) {
+            if ($request->is_select2) {
+                return $data;
+            }
+
             return view('admin.subjects.datatable', $data);
         }
 
