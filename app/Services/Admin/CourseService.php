@@ -7,6 +7,7 @@ use App\Http\Requests\Courses\UpdateRequest;
 use App\Libs\Service\BaseService;
 use App\Libs\Traits\HandleUpload;
 use App\Models\Course;
+use App\Models\CourseTeacher;
 use App\Services\LMS\CourseLMSService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
@@ -84,6 +85,15 @@ class CourseService extends BaseService
         $course = Course::query()->create($this->prepareData($request));
         $course->syncClasses((array) $request->classes);
         $course->syncSubjects((array) $request->subjects);
+        if (!empty((array)$request->teachers)) {
+            foreach ((array)$request->teachers as $teacherId) {
+                $course->teachers()->syncWithoutDetaching([
+                    $teacherId => [
+                        'order' => (CourseTeacher::query()->where('course_id', $course->id)->max('order') ?? 0) + 1
+                    ]
+                ]);
+            }
+        }
 
         return $course->id;
     }
@@ -98,8 +108,9 @@ class CourseService extends BaseService
         $course = Course::query()->findOrFail($id);
         $course->classIds = $course->courseClasses()->pluck('class_id')->toArray();
         $lmsCourse = (new CourseLMSService())->findById($course->lms_id);
+        $teachers = (new TeacherService())->getByCourse($id)->load('subjects');
 
-        return array_merge($this->create(), compact('course', 'lmsCourse'));
+        return array_merge($this->create(), compact('course', 'lmsCourse', 'teachers'));
     }
 
     /**
@@ -185,5 +196,69 @@ class CourseService extends BaseService
         }
 
         return $this->updateStatusData(new Course(), $id, $request->column);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return array
+     */
+    public function addTeachers(Request $request, int $id)
+    {
+        /** @var Course $course */
+        $course = Course::query()->findOrFail($id);
+        foreach ((array)$request->teacher_ids as $teacherId) {
+            $course->teachers()->syncWithoutDetaching([
+                $teacherId => [
+                    'order' => (CourseTeacher::query()->where('course_id', $course->id)->max('order') ?? 0) + 1
+                ]
+            ]);
+        }
+
+        $teachers = (new TeacherService())->getByCourse($id)->load('subjects');
+
+        return compact('teachers', 'course');
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return bool
+     */
+    public function reorderTeachers(Request $request, int $id)
+    {
+        $teacherIds = array_values((array) $request->sort);
+
+        $orders = CourseTeacher::query()
+            ->where('course_id', $id)
+            ->whereIn('teacher_id', $teacherIds)
+            ->orderByDesc('order')
+            ->pluck('order')
+            ->toArray();
+
+        foreach ($orders as $key => $value) {
+            CourseTeacher::query()
+                ->where([
+                    ['course_id', $id],
+                    ['teacher_id', $teacherIds[$key]]
+                ])
+                ->update(['order' => $value]);
+        }
+
+        return true;
+    }
+
+    /**
+     * @param int $id
+     * @param int $teacherId
+     * @return bool
+     */
+    public function destroyTeacher(int $id, int $teacherId)
+    {
+        /** @var Course $course */
+        $course = Course::query()->findOrFail($id);
+        $course->teachers()->detach([$teacherId]);
+
+        return true;
     }
 }

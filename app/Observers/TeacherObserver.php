@@ -51,6 +51,7 @@ class TeacherObserver
     {
         $this->removeImage(storage_path('app/public/'.Teacher::AVATAR_DIR).'/'.$teacher->avatar);
         $teacher->subjects()->detach();
+        $teacher->courses()->detach();
     }
 
     /**

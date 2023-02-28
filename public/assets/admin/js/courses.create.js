@@ -1,10 +1,26 @@
 $(document).ready(function () {
     // CKEDITOR.replace('description');
     initSelect2();
+    select2Teacher();
+    $('#select_teachers').on('change.select2', function () {
+        select2Teacher();
+    });
 });
 
+function select2Teacher() {
+    const customParams = {
+        is_for_course: true
+    };
+    if ($('[name=id]').length) {
+        customParams.course_id = $('[name=id]').val();
+    } else {
+        customParams.selected_ids = $('#select_teachers').val()
+    }
+    select2FlexData('#select_teachers', '/admin/teachers', 'teachers', customParams);
+}
+
 function initSelect2() {
-    select2Subjects();
+    select2FlexData();
     $('select[name=type]').select2({
         minimumResultsForSearch: -1
     });

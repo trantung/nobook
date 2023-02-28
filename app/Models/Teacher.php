@@ -78,4 +78,9 @@ class Teacher extends BaseModel
     {
         return $this->belongsToMany(Subject::class, 'teacher_subject');
     }
+
+    public function courses()
+    {
+        return $this->belongsToMany(Course::class, 'course_teacher');
+    }
 }

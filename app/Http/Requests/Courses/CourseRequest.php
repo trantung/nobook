@@ -43,6 +43,7 @@ class CourseRequest extends FormRequest
             'article_include' => 'string|nullable',
             'access_include' => 'string|nullable',
             'certificate_include' => 'string|nullable',
+            'teachers' => 'nullable|array',
         ];
     }
 

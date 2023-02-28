@@ -29,6 +29,18 @@ class SubjectService extends BaseService
             });
         }
 
+        if ($request->is_for_teacher) {
+            if ($request->selected_ids) {
+                $query->whereNotIn('id', (array)$request->selected_ids);
+            } else {
+                $query->whereNotIn('id', function ($query) {
+                    $query->select('subject_id')
+                        ->from('teacher_subject')
+                        ->where('teacher_id', request()->teacher_id);
+                });
+            }
+        }
+
         $subjects = $query
             ->orderByDesc('order')
             ->paginate($paginate);

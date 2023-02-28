@@ -33,6 +33,18 @@ class TeacherService extends BaseService
             });
         }
 
+        if ($request->is_for_course) {
+            if ($request->selected_ids) {
+                $query->whereNotIn('id', (array)$request->selected_ids);
+            } else {
+                $query->whereNotIn('id', function ($query) {
+                    $query->select('teacher_id')
+                        ->from('course_teacher')
+                        ->where('course_id', request()->course_id);
+                });
+            }
+        }
+
         $teachers = $query
             ->orderByDesc('id')
             ->paginate($paginate);
@@ -185,5 +197,19 @@ class TeacherService extends BaseService
         $teacher->subjects()->detach([$subjectId]);
 
         return true;
+    }
+
+    /**
+     * @param int $courseId
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getByCourse(int $courseId)
+    {
+        return Teacher::query()
+            ->join('course_teacher', 'teachers.id', '=', 'course_teacher.teacher_id')
+            ->where('course_teacher.course_id', $courseId)
+            ->selectRaw('teachers.*, course_teacher.order')
+            ->orderByDesc('course_teacher.order')
+            ->get();
     }
 }

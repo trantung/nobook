@@ -163,4 +163,9 @@ class Course extends BaseModel
     {
         return $this->subjects()->sync($subjectIds);
     }
+
+    public function teachers()
+    {
+        return $this->belongsToMany(Teacher::class, 'course_teacher');
+    }
 }

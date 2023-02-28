@@ -79,5 +79,17 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'as' => 'change_status',
             'uses' => 'CourseController@updateStatus'
         ]);
+        Route::post('{id}/add-teachers', [
+            'as' => 'add_teachers',
+            'uses' => 'CourseController@addTeachers'
+        ]);
+        Route::post('{id}/reorder-teachers', [
+            'as' => 'reorder_teachers',
+            'uses' => 'CourseController@reorderTeachers'
+        ]);
+        Route::delete('{id}/destroy-teacher/{teacher}', [
+            'as' => 'destroy_teacher',
+            'uses' => 'CourseController@destroyTeacher'
+        ]);
     });
 });

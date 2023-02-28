@@ -26,13 +26,17 @@ class TeacherController extends Controller
 
     /**
      * @param Request $request
-     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View|array
      */
     public function index(Request $request)
     {
         $data = $this->teacherService->index($request);
 
         if ($request->ajax()) {
+            if ($request->is_select2) {
+                return $data;
+            }
+
             return view('admin.teachers.datatable', $data);
         }
 
