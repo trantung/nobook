@@ -120,4 +120,36 @@ class TeacherController extends Controller
     {
         return $this->teacherService->updateStatus($class);
     }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function addSubjects(Request $request, int $id)
+    {
+        $data = $this->teacherService->addSubjects($request, $id);
+
+        return view('admin.teachers.subjectstable', $data);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return bool
+     */
+    public function reorderSubjects(Request $request, int $id)
+    {
+        return $this->teacherService->reorderSubjects($request, $id);
+    }
+
+    /**
+     * @param int $id
+     * @param int $subject
+     * @return bool
+     */
+    public function destroySubject(int $id, int $subject)
+    {
+        return $this->teacherService->destroySubject($id, $subject);
+    }
 }

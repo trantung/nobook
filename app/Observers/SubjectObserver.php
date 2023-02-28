@@ -48,6 +48,7 @@ class SubjectObserver
     public function deleting(Subject $subject)
     {
         $subject->courses()->detach();
+        $subject->teachers()->detach();
     }
 
     /**

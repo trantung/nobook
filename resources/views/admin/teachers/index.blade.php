@@ -1,4 +1,4 @@
-@extends('admin.layouts.main', ['title' => 'Danh sách lớp', 'activePage' => 'teachers-menu'])
+@extends('admin.layouts.main', ['title' => 'Danh sách giáo viên', 'activePage' => 'teachers-menu'])
 @section('breadcrumb')
     <div class="row page-titles mx-0">
         <div class="col p-md-0">

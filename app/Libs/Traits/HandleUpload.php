@@ -49,7 +49,7 @@ trait HandleUpload
      */
     protected function removeImage(string $filePath = '')
     {
-        if ($filePath && file_exists($filePath)) {
+        if ($filePath && file_exists($filePath) && !is_dir($filePath)) {
             unlink($filePath);
         }
     }

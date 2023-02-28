@@ -66,33 +66,8 @@
 
 @push('css')
     <link href="{{ asset('assets/admin/css/user.css') }}" rel="stylesheet">
-    <link src="{{ asset('assets/admin/css/datatable.css') }}">
-    <style>
-        .select2-container .select2-selection {
-            min-height: unset !important;
-            height: 30px !important;
-            border: 1px solid #ced4da;
-        }
-        .select2-selection__rendered {
-            height: 30px !important;
-            line-height: 28px !important;
-        }
-        .select2-selection__arrow {
-            height: 30px !important;
-        }
-
-        .select2-container--default .select2-selection--multiple .select2-selection__choice {
-            line-height: 22px !important;
-            margin-top: 3px !important;
-        }
-
-        .select2-container .select2-search--inline .select2-search__field {
-            margin-top: 0 !important;
-        }
-        .select2-container {
-            width: 100% !important;
-        }
-    </style>
+    <link href="{{ asset('assets/admin/css/datatable.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/miniselect2.css') }}" rel="stylesheet">
 @endpush
 
 @push('js')

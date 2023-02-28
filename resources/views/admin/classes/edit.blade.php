@@ -44,7 +44,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label>Cấp học <span class="text-danger">*</span></label>
-                                        <select type="text" name="level" required class="form-control input-default">
+                                        <select name="level" required class="form-control input-default">
                                             @foreach(\App\Models\ClassModel::LEVELS as $key => $value)
                                                 <option @if($class->level == $value) selected @endif value="{{ $value }}">{{ $key }}</option>
                                             @endforeach
@@ -70,11 +70,13 @@
     </div>
 @endsection
 @push('js')
-    <script>
-        $(document).ready(function () {
-            $('select').select2({
-                width: '100%'
+    @push('js')
+        <script>
+            $(document).ready(function () {
+                $('select[name=level]').select2({
+                    minimumResultsForSearch: -1
+                });
             });
-        });
-    </script>
+        </script>
+    @endpush
 @endpush
