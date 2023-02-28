@@ -123,5 +123,6 @@
 @endpush
 @push('js')
     <script src="{{ asset('assets/admin/js/teachers.create.js') }}"></script>
+    <script src="{{ asset('assets/admin/js/teachers.edit.js') }}"></script>
     <script src="{{ asset('assets/admin/js/ckeditor/ckeditor.js') }}"></script>
 @endpush
