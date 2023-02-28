@@ -52,7 +52,7 @@
                                         <label>Môn học <span class="text-danger">*</span></label>
                                         <select class="form-control input-default" name="subjects[]" id="select_subjects" required multiple>
                                             @forelse($course->subjects as $subject)
-                                                <option selected value="{{ $subject->id }}">{{ $subject->name . ' | ' .$subject->code }}</option>
+                                                <option selected value="{{ $subject->id }}">{{ $subject->name }}</option>
                                             @empty
                                             @endforelse
                                         </select>

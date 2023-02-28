@@ -41,6 +41,18 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'as' => 'change_status',
             'uses' => 'TeacherController@updateStatus'
         ]);
+        Route::post('{id}/add-subjects', [
+            'as' => 'add_subjects',
+            'uses' => 'TeacherController@addSubjects'
+        ]);
+        Route::post('{id}/reorder-subjects', [
+            'as' => 'reorder_subjects',
+            'uses' => 'TeacherController@reorderSubjects'
+        ]);
+        Route::delete('{id}/destroy-subject/{subject}', [
+            'as' => 'destroy_subject',
+            'uses' => 'TeacherController@destroySubject'
+        ]);
     });
 
     // subject routes

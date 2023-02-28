@@ -67,3 +67,12 @@
         </div>
     </div>
 @endsection
+@push('js')
+    <script>
+        $(document).ready(function () {
+            $('select[name=level]').select2({
+                minimumResultsForSearch: -1
+            });
+        });
+    </script>
+@endpush

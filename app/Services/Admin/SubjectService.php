@@ -119,4 +119,18 @@ class SubjectService extends BaseService
 
         return $attributes;
     }
+
+    /**
+     * @param int $teacherId
+     * @return Builder[]|\Illuminate\Database\Eloquent\Collection
+     */
+    public function getByTeacher(int $teacherId)
+    {
+        return Subject::query()
+            ->join('teacher_subject', 'subjects.id', '=', 'teacher_subject.subject_id')
+            ->where('teacher_subject.teacher_id', $teacherId)
+            ->selectRaw('subjects.*, teacher_subject.order')
+            ->orderByDesc('teacher_subject.order')
+            ->get();
+    }
 }

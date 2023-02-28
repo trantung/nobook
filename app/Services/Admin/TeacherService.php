@@ -7,6 +7,7 @@ use App\Http\Requests\Teachers\UpdateRequest;
 use App\Libs\Service\BaseService;
 use App\Libs\Traits\HandleUpload;
 use App\Models\Teacher;
+use App\Models\TeacherSubject;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
@@ -59,8 +60,9 @@ class TeacherService extends BaseService
     {
         /** @var Teacher $teacher */
         $teacher = Teacher::query()->findOrFail($id);
+        $subjects = (new SubjectService())->getByTeacher($id);
 
-        return compact('teacher');
+        return compact('teacher', 'subjects');
     }
 
     /**
@@ -85,7 +87,6 @@ class TeacherService extends BaseService
     {
         /** @var Teacher $record */
         $record = Teacher::query()->findOrFail($id);
-        $this->removeImage(storage_path('app/public/'.Teacher::AVATAR_DIR).'/'.$record->avatar);
 
         return $record->delete();
     }
@@ -112,5 +113,68 @@ class TeacherService extends BaseService
         $attributes['is_public'] = $request->is_public ? 1 : 0;
 
         return $attributes;
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return array
+     */
+    public function addSubjects(Request $request, int $id)
+    {
+        /** @var Teacher $teacher */
+        $teacher = Teacher::query()->findOrFail($id);
+        foreach ((array) $request->subject_ids as $subjectId) {
+            $teacher->subjects()->syncWithoutDetaching([
+                $subjectId => [
+                    'order' => (TeacherSubject::query()->where('teacher_id', $id)->max('order') ?? 0) + 1
+                ]
+            ]);
+        }
+        $subjects = (new SubjectService())->getByTeacher($id);
+
+        return compact('subjects', 'teacher');
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return bool
+     */
+    public function reorderSubjects(Request $request, int $id)
+    {
+        $subjectIds = array_values((array) $request->sort);
+
+        $orders = TeacherSubject::query()
+            ->where('teacher_id', $id)
+            ->whereIn('subject_id', $subjectIds)
+            ->orderByDesc('order')
+            ->pluck('order')
+            ->toArray();
+
+        foreach ($orders as $key => $value) {
+            TeacherSubject::query()
+                ->where([
+                    ['teacher_id', $id],
+                    ['subject_id', $subjectIds[$key]]
+                ])
+                ->update(['order' => $value]);
+        }
+
+        return true;
+    }
+
+    /**
+     * @param int $id
+     * @param int $subjectId
+     * @return bool
+     */
+    public function destroySubject(int $id, int $subjectId)
+    {
+        /** @var Teacher $teacher */
+        $teacher = Teacher::query()->findOrFail($id);
+        $teacher->subjects()->detach([$subjectId]);
+
+        return true;
     }
 }

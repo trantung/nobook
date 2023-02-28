@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Observers\TeacherObserver;
 use Illuminate\Database\Eloquent\Builder;
 
 /**
@@ -55,6 +56,12 @@ class Teacher extends BaseModel
         # [/auto-gen-attribute]
     ];
 
+    public static function boot()
+    {
+        parent::boot();
+        self::observe(TeacherObserver::class);
+    }
+
     public function scopePublic(Builder $query)
     {
         $query->where('is_public', 1);
@@ -65,5 +72,10 @@ class Teacher extends BaseModel
         return $this->avatar
             ? implode('/', [url('storage'), self::AVATAR_DIR, $this->avatar])
             : '';
+    }
+
+    public function subjects()
+    {
+        return $this->belongsToMany(Subject::class, 'teacher_subject');
     }
 }
