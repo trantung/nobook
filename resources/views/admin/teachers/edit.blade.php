@@ -30,6 +30,7 @@
                                     <form class="mt-4" name="create" action="{{ route('admin.teachers.update', $teacher->id) }}" method="POST" enctype="multipart/form-data">
                                         @method('PUT')
                                         @csrf
+                                        <input hidden name="id" value="{{ $teacher->id }}">
                                         <div class="row">
                                             <div class="col-md-12 text-right">
                                                 <button type="submit" class="btn btn-primary ml-auto">Cập nhật</button>

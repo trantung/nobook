@@ -51,6 +51,7 @@ class CourseObserver
     {
         $course->classes()->detach();
         $course->subjects()->detach();
+        $course->teachers()->detach();
         foreach (['desktop_avatar', 'mobile_avatar'] as $key) {
             if ($course->{$key}) {
                 $this->removeImage(storage_path('app/public/'.Course::AVATAR_DIR).'/'.$course->{$key});

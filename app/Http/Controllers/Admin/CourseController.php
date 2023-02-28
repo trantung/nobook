@@ -140,4 +140,36 @@ class CourseController extends Controller
     {
         return $this->courseService->updateStatus($request, $course);
     }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function addTeachers(Request $request, int $id)
+    {
+        $data = $this->courseService->addTeachers($request, $id);
+
+        return view('admin.courses.teacherstable', $data);
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return bool
+     */
+    public function reorderTeachers(Request $request, int $id)
+    {
+        return $this->courseService->reorderTeachers($request, $id);
+    }
+
+    /**
+     * @param int $id
+     * @param int $teacher
+     * @return bool
+     */
+    public function destroyTeacher(int $id, int $teacher)
+    {
+        return $this->courseService->destroyTeacher($id, $teacher);
+    }
 }

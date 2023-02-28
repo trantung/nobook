@@ -164,29 +164,30 @@ function searchButton(callback) {
     });
 }
 
-function select2Subjects(container = '#select_subjects') {
+function select2FlexData(container = '#select_subjects', url = '/admin/subjects', dataKey = 'subjects', customParams = {}) {
     let selectedSubjects = $(container).val();
     $(container).select2({
         width: '100%',
         ajax: {
-            url: '/admin/subjects',
+            url: url,
             delay: 300,
             data: function (params) {
                 return {
                     text: params.term, // search term
                     page: params.page,
-                    is_select2: true
+                    is_select2: true,
+                    ...customParams
                 };
             },
             processResults: function (data, params) {
-                data = data.subjects;
-                let subjects = data.data;
+                data = data[dataKey];
+                let items = data.data;
                 const resData = [];
-                for (let i = 0; i < subjects.length; i++) {
+                for (let i = 0; i < items.length; i++) {
                     resData.push({
-                        id: subjects[i].id,
-                        text: subjects[i].name,
-                        selected: selectedSubjects.includes(subjects[i].id)
+                        id: items[i].id,
+                        text: items[i].name,
+                        selected: selectedSubjects.includes(items[i].id)
                     });
                 }
                 return {

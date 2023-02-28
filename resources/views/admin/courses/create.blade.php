@@ -52,6 +52,11 @@
                                         </select>
                                     </div>
                                     <div class="form-group">
+                                        <label>Giáo viên</label>
+                                        <select class="form-control input-default" name="teachers[]" id="select_teachers" multiple>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
                                         <label>Link video intro</label>
                                         <input type="text" name="intro_link" value="{{ old('intro_link') ?? '' }}" class="form-control input-default">
                                     </div>
