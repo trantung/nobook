@@ -37,6 +37,12 @@
                                         <input type="text" name="label" value="{{ old('label') ?? '' }}"  class="form-control input-default">
                                     </div>
                                 </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label>Môn học</label>
+                                        <select name="subjects[]" id="select_subjects" multiple></select>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row">
                                 <div class="col-md-6">
@@ -82,7 +88,5 @@
 @endsection
 @push('js')
     <script src="{{ asset('assets/admin/js/ckeditor/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace('description');
-    </script>
+    <script src="{{ asset('assets/admin/js/teachers.create.js') }}"></script>
 @endpush

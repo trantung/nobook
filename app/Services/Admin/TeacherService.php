@@ -48,6 +48,15 @@ class TeacherService extends BaseService
     {
         /** @var Teacher $teacher */
         $teacher = Teacher::query()->create($this->prepareData($request));
+        if (!empty((array)$request->subjects)) {
+            foreach ((array)$request->subjects as $subjectId) {
+                $teacher->subjects()->syncWithoutDetaching([
+                    $subjectId => [
+                        'order' => (TeacherSubject::query()->where('teacher_id', $teacher->id)->max('order') ?? 0) + 1
+                    ]
+                ]);
+            }
+        }
 
         return $teacher->id;
     }

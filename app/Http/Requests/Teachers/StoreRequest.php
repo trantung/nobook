@@ -29,6 +29,7 @@ class StoreRequest extends FormRequest
             'avatar' => 'nullable|mimes:jpeg,png,jpg',
             'description' => 'nullable|string',
             'is_public' => 'nullable',
+            'subjects' => 'nullable|array',
         ];
     }
 
