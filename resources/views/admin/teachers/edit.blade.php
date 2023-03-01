@@ -53,9 +53,12 @@
                                         <div class="row">
                                             <div class="col-md-6">
                                                 <div class="form-group">
-                                                    <div class="custom-control custom-switch">
-                                                        <input type="checkbox" class="custom-control-input" id="customSwitch1" @if($teacher->is_public) checked @endif name="is_public">
-                                                        <label class="custom-control-label" for="customSwitch1">Hiển thị</label>
+                                                    <div class="custom-switch-toggle-container">
+                                                        <label class="custom-switch-toggle">
+                                                            <input type="checkbox" name="is_public" @if($teacher->is_public) checked @endif>
+                                                            <span class="slider"></span>
+                                                        </label>
+                                                        <label class="switch-label">Hiển thị</label>
                                                     </div>
                                                 </div>
                                             </div>

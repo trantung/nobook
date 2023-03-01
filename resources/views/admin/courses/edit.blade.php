@@ -88,17 +88,23 @@
                                                 <div class="row">
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="customSwitch1" @if($course->is_public) checked @endif name="is_public">
-                                                                <label class="custom-control-label" for="customSwitch1">Hiển thị</label>
+                                                            <div class="custom-switch-toggle-container">
+                                                                <label class="custom-switch-toggle">
+                                                                    <input type="checkbox" name="is_public" @if($course->is_public) checked @endif>
+                                                                    <span class="slider"></span>
+                                                                </label>
+                                                                <label class="switch-label">Hiển thị</label>
                                                             </div>
                                                         </div>
                                                     </div>
                                                     <div class="col-md-6">
                                                         <div class="form-group">
-                                                            <div class="custom-control custom-switch">
-                                                                <input type="checkbox" class="custom-control-input" id="customSwitch2" @if($course->is_highlight) checked @endif name="is_highlight">
-                                                                <label class="custom-control-label" for="customSwitch2">Hiển thị trang chủ</label>
+                                                            <div class="custom-switch-toggle-container">
+                                                                <label class="custom-switch-toggle">
+                                                                    <input type="checkbox" name="is_highlight" @if($course->is_highlight) checked @endif>
+                                                                    <span class="slider"></span>
+                                                                </label>
+                                                                <label class="switch-label">Hiển thị trang chủ</label>
                                                             </div>
                                                         </div>
                                                     </div>
