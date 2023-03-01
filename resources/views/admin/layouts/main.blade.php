@@ -21,6 +21,7 @@
     <link href="{{ asset('assets/admin/css/style.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/css/jasny-bootstrap.css') }}" rel="stylesheet">
     <link href="{{ asset('assets/admin/js/toastr/css/toastr.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('assets/admin/css/custom_switch.css') }}" rel="stylesheet">
 {{--    <link src="{{ asset('assets/admin/plugins/select2/css/select2.min.css') }}" rel="stylesheet">--}}
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/limonte-sweetalert2/11.4.24/sweetalert2.min.css" integrity="sha512-Yn5Z4XxNnXXE8Y+h/H1fwG/2qax2MxG9GeUOWL6CYDCSp4rTFwUpOZ1PS6JOuZaPBawASndfrlWYx8RGKgILhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     @stack('css')

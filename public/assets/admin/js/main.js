@@ -6,6 +6,7 @@ $.ajaxSetup({
 
 $(document).ready(function () {
     saveItemWithOptions();
+    customSwitch();
 });
 
 toastr.options = {
@@ -218,3 +219,12 @@ function saveItemWithOptions() {
     });
 }
 
+function customSwitch() {
+    var slider = $("#range"),
+        output = $("#output");
+
+    output.text(slider.val());
+    slider.on("input", function() {
+        output.text(slider.val());
+    });
+}
