@@ -5,9 +5,10 @@
             <tr>
                 <th></th>
                 <th class="text-center">ID</th>
+                <th class="text-center">Avatar</th>
                 <th class="text-center">Tên giáo viên</th>
                 <th class="text-center">Bộ môn</th>
-                <th class="text-center">Trạng thái hiển thị</th>
+                <th class="text-center" width="10%">Hiển thị</th>
                 <th class="text-center" style="width: 10%">Thao tác</th>
             </tr>
             </thead>
@@ -28,6 +29,7 @@
                         <i class="icon-list" style="font-size: 25px"></i>
                     </td>
                     <td class="text-center">{{ $teacher->id ?? '' }}</td>
+                    <td class="text-center" style="height: 160px;"><img style="max-height: 100%;" src="{{ $teacher->getAvatar() }}"></td>
                     <td class="class-name text-center" style="cursor: pointer;">{{ $teacher->name ?? '' }}</td>
                     <td class="class-name text-center" style="cursor: pointer;">{{ $teacher->subjects->pluck('name')->implode(', ') }}</td>
                     <td class="text-center class-is_public">
@@ -47,7 +49,7 @@
                 </tr>
             @empty
                 <tr class="text-center">
-                    <td colspan="6">Không có dữ liệu.</td>
+                    <td colspan="7">Không có dữ liệu.</td>
                 </tr>
             @endforelse
             </tbody>

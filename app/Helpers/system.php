@@ -15,3 +15,17 @@ if (! function_exists('log_exception')) {
         \Log::error($exception);
     }
 }
+
+if (!function_exists('route_with_add_action')) {
+    function route_with_add_action(string $route): string {
+        $explode = explode('.', $route);
+        $addAction = request()->add_action;
+        if ($addAction == 'add') {
+            $explode[2] = 'create';
+        } elseif ($addAction == 'list') {
+            $explode[2] = 'index';
+        }
+
+        return implode('.', $explode);
+    }
+}

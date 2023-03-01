@@ -98,7 +98,7 @@
                                 <div class="tab-pane" id="subjects" role="tabpanel">
                                     <div style="text-align: right;" class="row mb-4">
                                         <div class="col-md-3"></div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 mini">
                                             <select name="subjects[]" id="select_subjects" multiple>
 
                                             </select>

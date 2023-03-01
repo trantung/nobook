@@ -5,7 +5,7 @@ $.ajaxSetup({
 });
 
 $(document).ready(function () {
-
+    saveItemWithOptions();
 });
 
 toastr.options = {
@@ -199,6 +199,22 @@ function select2FlexData(container = '#select_subjects', url = '/admin/subjects'
             },
             cache: true
         },
+    });
+}
+
+function saveItemWithOptions() {
+    let _button = $('.save-item');
+    let _input = $('input[name=add_action]');
+    let submitButton = _button.parents('form').find('button[type=submit]');
+    _button.off('click');
+    _button.on('click', function () {
+        if ($(this).hasClass('add')) {
+            _input.val('add');
+            submitButton.click();
+        } else if ($(this).hasClass('list')) {
+            _input.val('list');
+            submitButton.click();
+        }
     });
 }
 

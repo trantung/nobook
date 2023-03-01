@@ -14744,3 +14744,23 @@ html[dir="rtl"] [direction="rtl"][data-sidebar-style="compact"]:not([data-layout
 .select2-selection__choice__remove {
     color: white !important;
 }
+
+.save-dropdown-menu {
+    transform: translate3d(-71px, 37px, 0px) !important;
+}
+
+.save-dropdown-menu a {
+    line-height: 30px !important;
+}
+
+.save-dropdown-menu i {
+    font-size: 24px !important;
+    margin-right: 12px !important;
+    vertical-align: sub !important;
+}
+
+.save-dropdown-menu span {
+    margin-right: 15px !important;
+    font-size: 30px !important;
+    vertical-align: sub !important;
+}
