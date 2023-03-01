@@ -60,7 +60,7 @@ class SubjectController extends Controller
     {
         $id = $this->subjectService->store($request);
 
-        return redirect()->route('admin.subjects.edit', $id)->with('success', 'Tạo mới thành công!');
+        return redirect()->route(route_with_add_action('admin.subjects.edit'), $id)->with('success', 'Tạo mới thành công!');
     }
 
     /**

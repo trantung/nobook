@@ -21,7 +21,15 @@
                             @csrf
                             <div class="row">
                                 <div class="col-md-12 text-right">
-                                    <button type="submit" class="btn btn-primary ml-auto">Tạo mới</button>
+                                    <div class="btn-group mb-1">
+                                        <button type="submit" class="btn btn-primary">Tạo mới</button>
+                                        <button type="button" class="btn btn-primary dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-expanded="false"></button>
+                                        <div class="dropdown-menu save-dropdown-menu" x-placement="bottom-end" style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(85px, 37px, 0px);">
+                                            <a class="dropdown-item add save-item" href="#"><span>+</span> Lưu + thêm mới</a>
+                                            <a class="dropdown-item list save-item" href="#"><i class="icon-list"></i>Lưu + về danh sách</a>
+                                        </div>
+                                    </div>
+                                    <input hidden name="add_action" value="">
                                 </div>
                             </div>
                             <div class="row">

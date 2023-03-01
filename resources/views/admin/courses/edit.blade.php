@@ -223,7 +223,7 @@
                                 <div class="tab-pane" id="teachers" role="tabpanel">
                                     <div style="text-align: right;" class="row mb-4">
                                         <div class="col-md-3"></div>
-                                        <div class="col-md-6">
+                                        <div class="col-md-6 mini">
                                             <select name="teachers[]" id="select_teachers" multiple>
 
                                             </select>

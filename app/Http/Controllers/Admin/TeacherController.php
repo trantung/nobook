@@ -63,7 +63,7 @@ class TeacherController extends Controller
     {
         $id = $this->teacherService->store($request);
 
-        return redirect()->route('admin.teachers.edit', $id)->with('success', 'Tạo mới thành công!');
+        return redirect()->route(route_with_add_action('admin.teachers.edit'), $id)->with('success', 'Tạo mới thành công!');
     }
 
     /**

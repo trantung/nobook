@@ -19,7 +19,7 @@
                             <h4 class="card-title">Danh sách khóa học</h4>
                             <a class="btn mb-1 btn-primary add-category" href="{{ route('admin.courses.create') }}">Thêm mới</a>
                         </div>
-                        <div class="row table-filter">
+                        <div class="row table-filter mini">
                             <div class="col-sm-12 col-md-3">
                                 <label>
                                     Hiển thị

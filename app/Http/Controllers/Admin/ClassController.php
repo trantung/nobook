@@ -54,7 +54,7 @@ class ClassController extends Controller
     {
         $id = $this->classService->store($request);
 
-        return redirect()->route('admin.classes.edit', $id)->with('success', 'Tạo mới thành công!');
+        return redirect()->route(route_with_add_action('admin.classes.edit'), $id)->with('success', 'Tạo mới thành công!');
     }
 
     /**
