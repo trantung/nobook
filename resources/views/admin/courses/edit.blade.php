@@ -230,16 +230,44 @@
                                     <div style="text-align: right;" class="row mb-4">
                                         <div class="col-md-3"></div>
                                         <div class="col-md-6 mini">
-                                            <select name="teachers[]" id="select_teachers" multiple>
-
-                                            </select>
                                         </div>
                                         <div class="col-md-3">
-                                            <a class="btn mb-1 btn-primary add_teacher" href="#" data-href="{{ route('admin.courses.add_teachers', $course->id) }}">Chọn giáo viên</a>
+                                            <a class="btn mb-1 btn-primary" href="#" data-toggle="modal" data-target=".teachers-modal">Chọn giáo viên</a>
                                         </div>
                                     </div>
-                                    <div class="teacher-data table-data" data-order="{{ route('admin.courses.reorder_teachers', $course->id) }}">
+                                    <div class="teacher-data table-data" data-url="{{ route('admin.courses.teachers_all', $course->id) }}">
                                         @include('admin.courses.teacherstable')
+                                    </div>
+                                    <div class="modal fade teachers-modal" tabindex="-1" role="dialog" aria-hidden="true">
+                                        <div class="modal-dialog modal-lg" style="max-width: 65vw;">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <h5 class="modal-title">Chọn giáo viên</h5>
+                                                    <button type="button" class="close" data-dismiss="modal"><span>&times;</span>
+                                                    </button>
+                                                </div>
+                                                <div class="modal-body">
+                                                    <div class="row">
+                                                        <div class="col-md-4">
+                                                            <div class="form-group mini">
+                                                                <input class="form-control input-default filter-teachers filter" placeholder="Tìm kiếm" type="text">
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-8 text-center">
+                                                            <div class="form-group mini d-flex">
+                                                                <label style="width: 100px;margin-bottom: unset;align-self: center;">Môn học</label>
+                                                                <select class="select-subjects" style="width: 100%" id="select_subjects2" name="subjects[]" multiple>
+                                                                    <option></option>
+                                                                </select>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <div class="row teacher_modal_data" data-link="{{ route('admin.courses.teachers_list', $course->id) }}">
+                                                        @include('admin.courses.teacherstable_modal')
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>

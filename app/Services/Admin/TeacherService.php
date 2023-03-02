@@ -33,6 +33,17 @@ class TeacherService extends BaseService
             });
         }
 
+        if ($request->subject_ids) {
+            $subjectIds = explode(',', $request->subject_ids);
+            $query->whereHas('teacherSubjects', function (Builder $builder) use ($subjectIds) {
+                return $builder->whereIn('subject_id', $subjectIds);
+            });
+        }
+
+        if ($request->need_subjects) {
+            $query->with('subjects');
+        }
+
         if ($request->is_for_course) {
             if ($request->selected_ids) {
                 $query->whereNotIn('id', (array)$request->selected_ids);

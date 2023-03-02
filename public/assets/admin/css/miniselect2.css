@@ -22,3 +22,8 @@
 .mini .select2-container {
     width: 100% !important;
 }
+
+.mini input {
+    height: 30px !important;
+    min-height: unset !important;
+}

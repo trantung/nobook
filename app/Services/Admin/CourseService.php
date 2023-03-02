@@ -107,10 +107,14 @@ class CourseService extends BaseService
         /** @var Course $course */
         $course = Course::query()->findOrFail($id);
         $course->classIds = $course->courseClasses()->pluck('class_id')->toArray();
+        $teacherSelectedIds = $course->courseTeachers()->pluck('teacher_id')->toArray();
         $lmsCourse = (new CourseLMSService())->findById($course->lms_id);
         $teachers = (new TeacherService())->getByCourse($id)->load('subjects');
+        request()->perpage = 5;
+        request()->need_subjects = 1;
+        $allTeachers = (new TeacherService())->index(request())['teachers'];
 
-        return array_merge($this->create(), compact('course', 'lmsCourse', 'teachers'));
+        return array_merge($this->create(), compact('course', 'lmsCourse', 'teachers', 'allTeachers', 'teacherSelectedIds'));
     }
 
     /**
@@ -260,5 +264,51 @@ class CourseService extends BaseService
         $course->teachers()->detach([$teacherId]);
 
         return true;
+    }
+
+    /**
+     * @param int $id
+     * @param int $teacherId
+     * @return bool
+     */
+    public function addTeacher(int $id, int $teacherId)
+    {
+        /** @var Course $course */
+        $course = Course::query()->findOrFail($id);
+        $course->teachers()->syncWithoutDetaching([
+            $teacherId => [
+                'order' => (int) CourseTeacher::query()->where('course_id', $course->id)->max('order') + 1
+            ]
+        ]);
+
+        return true;
+    }
+
+    /**
+     * @param Request $request
+     * @param int $id
+     * @return array
+     */
+    public function getTeachersPaginate(Request $request, int $id)
+    {
+        $allTeachers = (new TeacherService())->index($request)['teachers'];
+        /** @var Course $course */
+        $course = Course::query()->findOrFail($id);
+        $teacherSelectedIds = $course->courseTeachers()->pluck('teacher_id')->toArray();
+
+        return compact('allTeachers', 'course', 'teacherSelectedIds');
+    }
+
+    /**
+     * @param int $courseId
+     * @return array
+     */
+    public function getAllTeacherByCourse(int $courseId)
+    {
+        /** @var Course $course */
+        $course = Course::query()->findOrFail($courseId);
+        $teachers = (new TeacherService())->getByCourse($courseId);
+
+        return compact('course', 'teachers');
     }
 }

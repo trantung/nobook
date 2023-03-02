@@ -165,9 +165,10 @@ function searchButton(callback) {
     });
 }
 
-function select2FlexData(container = '#select_subjects', url = '/admin/subjects', dataKey = 'subjects', customParams = {}) {
+function select2FlexData(container = '#select_subjects', url = '/admin/subjects', dataKey = 'subjects', customParams = {}, placeholder = '') {
     let selectedSubjects = $(container).val();
     $(container).select2({
+        placeholder: placeholder,
         width: '100%',
         ajax: {
             url: url,
@@ -198,7 +199,7 @@ function select2FlexData(container = '#select_subjects', url = '/admin/subjects'
                     }
                 };
             },
-            cache: true
+            cache: true,
         },
     });
 }

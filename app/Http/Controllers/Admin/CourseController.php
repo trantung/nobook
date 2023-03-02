@@ -172,4 +172,37 @@ class CourseController extends Controller
     {
         return $this->courseService->destroyTeacher($id, $teacher);
     }
+
+    /**
+     * @param int $id
+     * @param int $teacher
+     * @return bool
+     */
+    public function addTeacher(int $id, int $teacher)
+    {
+        return $this->courseService->addTeacher($id, $teacher);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getTeachersPaginate(Request $request, $id)
+    {
+        $data = $this->courseService->getTeachersPaginate($request, $id);
+
+        return view('admin.courses.teacherstable_modal', $data);
+    }
+
+    /**
+     * @param int $courseId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getAllTeacher(int $courseId)
+    {
+        $data = $this->courseService->getAllTeacherByCourse($courseId);
+
+        return view('admin.courses.teacherstable', $data);
+    }
 }
