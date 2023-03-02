@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Courses\StoreRequest;
 use App\Http\Requests\Courses\UpdateRequest;
 use App\Services\Admin\CourseService;
+use App\Services\Admin\TeacherService;
 use App\Services\LMS\CourseLMSService;
 use Illuminate\Http\Request;
 
@@ -171,5 +172,16 @@ class CourseController extends Controller
     public function destroyTeacher(int $id, int $teacher)
     {
         return $this->courseService->destroyTeacher($id, $teacher);
+    }
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getTeachersPaginate(Request $request)
+    {
+        $allTeachers = (new TeacherService())->index($request)['teachers'];
+
+        return view('admin.courses.teacherstable_modal', compact('allTeachers'));
     }
 }

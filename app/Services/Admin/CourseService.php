@@ -109,8 +109,9 @@ class CourseService extends BaseService
         $course->classIds = $course->courseClasses()->pluck('class_id')->toArray();
         $lmsCourse = (new CourseLMSService())->findById($course->lms_id);
         $teachers = (new TeacherService())->getByCourse($id)->load('subjects');
+        $allTeachers = (new TeacherService())->index(request())['teachers'];
 
-        return array_merge($this->create(), compact('course', 'lmsCourse', 'teachers'));
+        return array_merge($this->create(), compact('course', 'lmsCourse', 'teachers', 'allTeachers'));
     }
 
     /**

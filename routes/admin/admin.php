@@ -91,5 +91,9 @@ Route::group(['middleware' => 'auth:admin'], function () {
             'as' => 'destroy_teacher',
             'uses' => 'CourseController@destroyTeacher'
         ]);
+        Route::get('teachers/paginate', [
+            'as' => 'teachers_list',
+            'uses' => 'CourseController@getTeachersPaginate'
+        ]);
     });
 });
