@@ -40,6 +40,10 @@ class TeacherService extends BaseService
             });
         }
 
+        if ($request->need_subjects) {
+            $query->with('subjects');
+        }
+
         if ($request->is_for_course) {
             if ($request->selected_ids) {
                 $query->whereNotIn('id', (array)$request->selected_ids);

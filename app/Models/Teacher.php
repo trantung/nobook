@@ -86,6 +86,6 @@ class Teacher extends BaseModel
 
     public function teacherSubjects()
     {
-        return $this->hasMany(TeacherSubject::class, 'teacher_subject');
+        return $this->hasMany(TeacherSubject::class);
     }
 }

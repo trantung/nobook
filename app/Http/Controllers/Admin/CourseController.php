@@ -6,7 +6,6 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Courses\StoreRequest;
 use App\Http\Requests\Courses\UpdateRequest;
 use App\Services\Admin\CourseService;
-use App\Services\Admin\TeacherService;
 use App\Services\LMS\CourseLMSService;
 use Illuminate\Http\Request;
 
@@ -175,13 +174,35 @@ class CourseController extends Controller
     }
 
     /**
+     * @param int $id
+     * @param int $teacher
+     * @return bool
+     */
+    public function addTeacher(int $id, int $teacher)
+    {
+        return $this->courseService->addTeacher($id, $teacher);
+    }
+
+    /**
      * @param Request $request
+     * @param $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function getTeachersPaginate(Request $request)
+    public function getTeachersPaginate(Request $request, $id)
     {
-        $allTeachers = (new TeacherService())->index($request)['teachers'];
+        $data = $this->courseService->getTeachersPaginate($request, $id);
 
-        return view('admin.courses.teacherstable_modal', compact('allTeachers'));
+        return view('admin.courses.teacherstable_modal', $data);
+    }
+
+    /**
+     * @param int $courseId
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getAllTeacher(int $courseId)
+    {
+        $data = $this->courseService->getAllTeacherByCourse($courseId);
+
+        return view('admin.courses.teacherstable', $data);
     }
 }
