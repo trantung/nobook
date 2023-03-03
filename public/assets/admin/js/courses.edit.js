@@ -5,12 +5,12 @@ $(document).ready(function () {
         getTeachersData(page);
     };
     search(func);
-    navigate(func);
+    // navigate(func);
     $('#select_subjects2').on('change', function () {
         func(1);
     });
-    actionTeacher();
-    actionTeacher('.remove_teacher');
+    // actionTeacher();
+    // actionTeacher('.remove_teacher');
 
     const modal = $('.teachers-modal');
     modal.on('hide.bs.modal', function (e) {
@@ -18,7 +18,7 @@ $(document).ready(function () {
         $.ajax({
             url: container.data('url'),
             success: function (res) {
-                toastr.success(defaultSuccessMess, successTitle);
+                // toastr.success(defaultSuccessMess, successTitle);
                 container.html(res);
                 modal.modal('hide');
                 init();
@@ -27,6 +27,9 @@ $(document).ready(function () {
                 toastr.error(defaultFailMess, failTitle);
             }
         });
+    });
+    modal.on('show.bs.modal', function () {
+        getTeachersData(1);
     });
 });
 
