@@ -107,14 +107,10 @@ class CourseService extends BaseService
         /** @var Course $course */
         $course = Course::query()->findOrFail($id);
         $course->classIds = $course->courseClasses()->pluck('class_id')->toArray();
-        $teacherSelectedIds = $course->courseTeachers()->pluck('teacher_id')->toArray();
         $lmsCourse = (new CourseLMSService())->findById($course->lms_id);
         $teachers = (new TeacherService())->getByCourse($id)->load('subjects');
-        request()->perpage = 5;
-        request()->need_subjects = 1;
-        $allTeachers = (new TeacherService())->index(request())['teachers'];
 
-        return array_merge($this->create(), compact('course', 'lmsCourse', 'teachers', 'allTeachers', 'teacherSelectedIds'));
+        return array_merge($this->create(), compact('course', 'lmsCourse', 'teachers'));
     }
 
     /**

@@ -263,7 +263,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="row teacher_modal_data" data-link="{{ route('admin.courses.teachers_list', $course->id) }}">
-                                                        @include('admin.courses.teacherstable_modal')
+{{--                                                        @include('admin.courses.teacherstable_modal')--}}
                                                     </div>
                                                 </div>
                                             </div>
