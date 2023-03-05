@@ -2,7 +2,7 @@
 
 namespace App\Services\LMS;
 
-use App\Models\CourseLMS;
+use App\Models\LMS\Course as CourseLMS;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 

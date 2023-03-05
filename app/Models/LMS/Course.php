@@ -1,6 +1,8 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\LMS;
+
+use App\Models\BaseModel;
 
 /**
  * Class Course
@@ -30,7 +32,7 @@ namespace App\Models;
  * [/auto-gen-property]
  *
  */
-class CourseLMS extends BaseModel
+class Course extends BaseModel
 {
     /**
      * The table associated with the model.
@@ -38,6 +40,7 @@ class CourseLMS extends BaseModel
      * @var string $table
      */
     protected $table = 'course';
+    protected static $moodleTableName = 'course';
 
     protected $connection = 'moodle';
 

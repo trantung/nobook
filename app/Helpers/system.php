@@ -29,3 +29,20 @@ if (!function_exists('route_with_add_action')) {
         return implode('.', $explode);
     }
 }
+
+if (! function_exists('moodle_table_name')) {
+    function moodle_table_name(string $tableName = '') {
+        return env('MOODLE_TABLE_PREFIX').'_'.$tableName;
+    }
+}
+
+if (! function_exists('get_query_with_bindings')) {
+    function get_query_with_bindings($query): string {
+        $bindings = collect($query->getBindings())->map(function ($binding) {
+            $binding = addslashes($binding);
+            return is_numeric($binding) ? $binding : "'{$binding}'";
+        })->toArray();
+
+        return vsprintf(str_replace('?', '%s', $query->toSql()), $bindings);
+    }
+}

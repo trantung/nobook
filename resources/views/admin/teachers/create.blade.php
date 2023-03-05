@@ -83,7 +83,7 @@
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>Mô tả <span class="text-danger">*</span></label>
+                                        <label>Mô tả</label>
                                         <textarea name="description" class="form-control input-default ckeditor"></textarea>
                                     </div>
                                 </div>

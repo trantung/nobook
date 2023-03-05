@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\LMS\CourseSection;
 use App\Observers\CourseObserver;
+use Illuminate\Support\Collection;
 
 /**
  * Class Course
@@ -31,6 +33,7 @@ use App\Observers\CourseObserver;
  * @property string $updated_at
  * [/auto-gen-property]
  *
+ * @property Collection $lmsSections
  */
 class Course extends BaseModel
 {
@@ -73,6 +76,11 @@ class Course extends BaseModel
         # [/auto-gen-attribute]
     ];
 
+    /**
+     * @var bool
+     */
+    protected $needFormatTimestamp = true;
+
     public static function boot()
     {
         parent::boot();
@@ -108,6 +116,22 @@ class Course extends BaseModel
         return $this->mobile_avatar
             ? implode('/', [url('storage'), self::AVATAR_DIR, $this->mobile_avatar])
             : '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getMethodName()
+    {
+        return array_flip(self::METHODS)[$this->method] ?? '';
+    }
+
+    /**
+     * @return string
+     */
+    public function getTypeName()
+    {
+        return array_flip(self::TYPES)[$this->type] ?? '';
     }
 
     /**
@@ -172,5 +196,10 @@ class Course extends BaseModel
     public function courseTeachers()
     {
         return $this->hasMany(CourseTeacher::class);
+    }
+
+    public function lmsSections()
+    {
+        return $this->hasMany(CourseSection::class, 'course', 'lms_id');
     }
 }
