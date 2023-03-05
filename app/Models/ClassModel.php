@@ -22,7 +22,7 @@ use Illuminate\Database\Eloquent\Builder;
  * @property string $updated_at
  * [/auto-gen-property]
  *
- * @method static Builder public
+ * @method static Builder public()
  *
  */
 class ClassModel extends BaseModel
@@ -40,6 +40,11 @@ class ClassModel extends BaseModel
      * @var string $primaryKey
      */
     protected $primaryKey = 'id';
+
+    /**
+     * @var bool
+     */
+    protected $needFormatTimestamp = true;
 
     /**
      * The attributes that are mass assignable.
@@ -74,6 +79,14 @@ class ClassModel extends BaseModel
     }
 
     /**
+     * @return int|string
+     */
+    public function getLevelName()
+    {
+        return array_flip(self::LEVELS)[$this->level] ?? '';
+    }
+
+    /**
      * @return string
      */
     public function getDisplayLevel(): string
@@ -83,6 +96,6 @@ class ClassModel extends BaseModel
 
     public function courses()
     {
-        return $this->belongsToMany(Course::class, 'course_class', 'course_class', 'class_id');
+        return $this->belongsToMany(Course::class, 'course_class', 'class_id', 'course_id');
     }
 }

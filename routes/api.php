@@ -17,3 +17,12 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('home/courses', [
+    'as' => 'home.courses',
+    'uses' => 'CourseController@homeList'
+]);
+Route::get('course/{id}/detail', [
+    'as' => 'courses.detail',
+    'uses' => 'CourseController@detail'
+]);
