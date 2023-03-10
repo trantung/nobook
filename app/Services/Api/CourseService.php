@@ -39,7 +39,7 @@ class CourseService
     public function detail(int $id)
     {
         /** @var Course $course */
-        $course = Course::query()->findOrFail($id);
+        $course = Course::query()->findOrFail($id)->load('classes');
         $course->load(['lmsSections' => function ($query) {
             $query->where('visible', 1)
                 ->where('section', '<>', 0)
