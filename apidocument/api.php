@@ -147,8 +147,8 @@
  */
 
 /**
- * @api {get} /api/course/{id}/detail Request list course's information
- * @apiName FrontendGetIndex
+ * @api {get} /api/course/{id}/detail Request get course's detail
+ * @apiName getCourseDetail
  * @apiGroup Frontend
  *
  * @apiParam {String} token Token of user can be empty
