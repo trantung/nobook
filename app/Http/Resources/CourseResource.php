@@ -31,6 +31,7 @@ class CourseResource extends JsonResource
             'result_content' => $this->result_content,
             'object_content' => $this->object_content,
             'include_content' => $this->getIncludeContent(),
+            'classes' => ClassResource::collection($this->whenLoaded('classes')),
             'sections' => CourseSectionResource::collection($this->whenLoaded('lmsSections')),
         ];
     }
