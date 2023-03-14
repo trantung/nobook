@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\CMS\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,3 +27,8 @@ Route::get('course/{id}/detail', [
     'as' => 'courses.detail',
     'uses' => 'CourseController@detail'
 ]);
+
+Route::group(['prefix' => 'cms'], function () {
+    Route::post('login', [UserController::class, 'login']);
+    Route::get('user-info', [UserController::class, 'userInfo']);
+});
