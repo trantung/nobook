@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\Extend\CMSApi;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +14,9 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind('cms.service', function () {
+            return new CMSApi();
+        });
     }
 
     /**
