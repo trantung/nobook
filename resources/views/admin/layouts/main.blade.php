@@ -108,7 +108,7 @@
 </script>
 
 <!--GG recaptcha-->
-@include('partials.ggcaptcha')
+<!-- @include('partials.ggcaptcha') -->
 
 @stack('js')
 </body>

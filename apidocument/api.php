@@ -1,11 +1,12 @@
 <?php
 /**
- * @api {get} /api/home/courses Request list course's information
- * @apiName HomeGetCourse
+ * @api {post} /api/home/courses Danh sách course được nhóm theo lớp
+ * @apiName HomeGetCourseGroupByClass
  * @apiGroup Frontend
  *
  * @apiParam {String} token Token of user can be empty
- *
+ * @apiParam {String} group_by_class Nhóm theo lớp
+ * ví dụ: group_by_class = 1
  * @apiSuccess {Integer} status Status of response
  * @apiSuccess {String} data  data response
  *
@@ -144,6 +145,252 @@
 *        }
 *    ]
 *}
+ */
+
+/**
+ * @api {post} /api/home/courses Danh sách course được nhóm theo môn
+ * @apiName HomeGetCourseGroupBySubject
+ * @apiGroup Frontend
+ *
+ * @apiParam {String} token Token of user can be empty
+ * @apiParam {String} group_by_subject Nhóm theo môn
+ * ví dụ: group_by_subject = 1
+ * @apiSuccess {Integer} status Status of response
+ * @apiSuccess {String} data  data response
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+* {
+* "success": 1,
+* "message": null,
+* "code": 0,
+* "data": [
+*     {
+*         "id": 1,
+*         "name": "Toán",
+*         "code": "toan",
+*         "courses": [
+*             {
+*                 "id": 3,
+*                 "name": "Khóa 2",
+*                 "slug": "khoa-2",
+*                 "type": "Khóa học lẻ",
+*                 "desktop_avatar": "nobook64108d22e3a73.png",
+*                 "mobile_avatar": null,
+*                 "intro_link": "https:*antdv.com/components/notification/#Notification",
+*                 "method": "Khóa video",
+*                 "description": "Mô tả ngắn",
+*                 "detail": "<p>M&ocirc; tả chi tiết kh&oacute;a học</p>",
+*                 "result_content": "<p>Kết quả nhận được</p>",
+*                 "object_content": null,
+*                 "include_content": {
+*                     "video_include": "asd",
+*                     "access_include": "fgg",
+*                     "article_include": "asdwew",
+*                     "certificate_include": "zxczxc"
+*                 }
+*             }
+*         ]
+*     },
+*     {
+*         "id": 2,
+*         "name": "Lý",
+*         "code": "ly",
+*         "courses": [
+*             {
+*                 "id": 4,
+*                 "name": "Khóa 3",
+*                 "slug": "khoa-3",
+*                 "type": "Khóa học lẻ",
+*                 "desktop_avatar": "nobook64108d50ca08a.png",
+*                 "mobile_avatar": null,
+*                 "intro_link": null,
+*                 "method": "Khóa video",
+*                 "description": "Mô tả ngắ",
+*                 "detail": "<p>M&ocirc; tả ngắ</p>",
+*                 "result_content": "<p>M&ocirc; tả ngắ</p>",
+*                 "object_content": null,
+*                 "include_content": {
+*                     "video_include": "",
+*                     "access_include": "",
+*                     "article_include": "",
+*                     "certificate_include": ""
+*                 }
+*             },
+*             {
+*                 "id": 3,
+*                 "name": "Khóa 2",
+*                 "slug": "khoa-2",
+*                 "type": "Khóa học lẻ",
+*                 "desktop_avatar": "nobook64108d22e3a73.png",
+*                 "mobile_avatar": null,
+*                 "intro_link": "https:*antdv.com/components/notification/#Notification",
+*                 "method": "Khóa video",
+*                 "description": "Mô tả ngắn",
+*                 "detail": "<p>M&ocirc; tả chi tiết kh&oacute;a học</p>",
+*                 "result_content": "<p>Kết quả nhận được</p>",
+*                 "object_content": null,
+*                 "include_content": {
+*                     "video_include": "asd",
+*                     "access_include": "fgg",
+*                     "article_include": "asdwew",
+*                     "certificate_include": "zxczxc"
+*                 }
+*             },
+*             {
+*                 "id": 2,
+*                 "name": "Khóa 1",
+*                 "slug": "khoa-1",
+*                 "type": "Khóa học lẻ",
+*                 "desktop_avatar": "nobook64108c6e1dadb.png",
+*                 "mobile_avatar": "nobook64108c6e1dcea.png",
+*                 "intro_link": "https:*antdv.com/components/notification/#Notification",
+*                 "method": "Khóa video",
+*                 "description": "mô tả ngắn",
+*                 "detail": "<p>chi tiết kh&oacute;a học</p>",
+*                 "result_content": "<p>kết quả</p>",
+*                 "object_content": "<p>Đối tượng học</p>",
+*                 "include_content": {
+*                     "video_include": "a",
+*                     "access_include": "c",
+*                     "article_include": "b",
+*                     "certificate_include": "d"
+*                 }
+*             }
+*         ]
+*     },
+*     {
+*         "id": 3,
+*         "name": "Hóa",
+*         "code": "hoa",
+*         "courses": [
+*             {
+*                 "id": 4,
+*                 "name": "Khóa 3",
+*                 "slug": "khoa-3",
+*                 "type": "Khóa học lẻ",
+*                 "desktop_avatar": "nobook64108d50ca08a.png",
+*                 "mobile_avatar": null,
+*                 "intro_link": null,
+*                 "method": "Khóa video",
+*                 "description": "Mô tả ngắ",
+*                 "detail": "<p>M&ocirc; tả ngắ</p>",
+*                 "result_content": "<p>M&ocirc; tả ngắ</p>",
+*                 "object_content": null,
+*                 "include_content": {
+*                     "video_include": "",
+*                     "access_include": "",
+*                     "article_include": "",
+*                     "certificate_include": ""
+*                 }
+*             },
+*             {
+*                 "id": 2,
+*                 "name": "Khóa 1",
+*                 "slug": "khoa-1",
+*                 "type": "Khóa học lẻ",
+*                 "desktop_avatar": "nobook64108c6e1dadb.png",
+*                 "mobile_avatar": "nobook64108c6e1dcea.png",
+*                 "intro_link": "https:*antdv.com/components/notification/#Notification",
+*                 "method": "Khóa video",
+*                 "description": "mô tả ngắn",
+*                 "detail": "<p>chi tiết kh&oacute;a học</p>",
+*                 "result_content": "<p>kết quả</p>",
+*                 "object_content": "<p>Đối tượng học</p>",
+*                 "include_content": {
+*                     "video_include": "a",
+*                     "access_include": "c",
+*                     "article_include": "b",
+*                     "certificate_include": "d"
+*                 }
+*             },
+*             {
+*                 "id": 1,
+*                 "name": "Khóa học thí nghiệm khoa học tự nhiên lớp 6",
+*                 "slug": "tunglaso1-khoa-hoc-le",
+*                 "type": "Khóa học lẻ",
+*                 "desktop_avatar": "nobook63fe18679b81f.png",
+*                 "mobile_avatar": "nobook63fe18679bb03.png",
+*                 "intro_link": "https:*www.youtube.com/watch?v=fNs1VDbeI7E",
+*                 "method": "Khóa video",
+*                 "description": "mô tả ngắn",
+*                 "detail": "<p><u>m&ocirc; tả chi tiết</u></p>",
+*                 "result_content": "<p><strong>kết quả nhận được</strong></p>",
+*                 "object_content": "<p><em>đối tượng học</em></p>",
+*                 "include_content": {
+*                     "video_include": "content video",
+*                     "access_include": "content mobile",
+*                     "article_include": "content text",
+*                     "certificate_include": "content cup"
+*                 }
+*             }
+*         ]
+*     }
+* ]
+* }
+ */
+
+/**
+ * @api {post} /api/home/courses Danh sách course được filter theo lớp và môn
+ * @apiName HomeGetCourseFilterByClassSubject
+ * @apiGroup Frontend
+ *
+ * @apiParam {String} token Token of user can be empty
+ * @apiParam {String} class_id id của lớp
+ * @apiParam {String} subject_id id của môn học
+ * ví dụ: class = 10, subject_id = 2
+ * @apiSuccess {Integer} status Status of response
+ * @apiSuccess {String} data  data response
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+* {
+* "success": 1,
+* "message": null,
+* "code": 0,
+* "data": [
+*     {
+*         "id": 3,
+*         "name": "Khóa 2",
+*         "slug": "khoa-2",
+*         "type": "Khóa học lẻ",
+*         "desktop_avatar": "nobook64108d22e3a73.png",
+*         "mobile_avatar": null,
+*         "intro_link": "https:*antdv.com/components/notification/#Notification",
+*         "method": "Khóa video",
+*         "description": "Mô tả ngắn",
+*         "detail": "<p>M&ocirc; tả chi tiết kh&oacute;a học</p>",
+*         "result_content": "<p>Kết quả nhận được</p>",
+*         "object_content": null,
+*         "include_content": {
+*             "video_include": "asd",
+*             "access_include": "fgg",
+*             "article_include": "asdwew",
+*             "certificate_include": "zxczxc"
+*         }
+*     },
+*     {
+*         "id": 2,
+*         "name": "Khóa 1",
+*         "slug": "khoa-1",
+*         "type": "Khóa học lẻ",
+*         "desktop_avatar": "nobook64108c6e1dadb.png",
+*         "mobile_avatar": "nobook64108c6e1dcea.png",
+*         "intro_link": "https:*antdv.com/components/notification/#Notification",
+*         "method": "Khóa video",
+*         "description": "mô tả ngắn",
+*         "detail": "<p>chi tiết kh&oacute;a học</p>",
+*         "result_content": "<p>kết quả</p>",
+*         "object_content": "<p>Đối tượng học</p>",
+*         "include_content": {
+*             "video_include": "a",
+*             "access_include": "c",
+*             "article_include": "b",
+*             "certificate_include": "d"
+*         }
+*     }
+* ]
+* }
  */
 
 /**

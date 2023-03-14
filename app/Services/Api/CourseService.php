@@ -3,9 +3,13 @@
 namespace App\Services\Api;
 
 use App\Http\Resources\ClassResource;
+use App\Http\Resources\SubjectResource;
 use App\Http\Resources\CourseResource;
 use App\Models\ClassModel;
+use App\Models\Subject;
 use App\Models\Course;
+use App\Models\CourseClass;
+use App\Models\CourseSubject;
 use App\Models\LMS\CourseModule;
 use App\Models\LMS\CourseSection;
 use App\Models\LMS\Module;
@@ -16,20 +20,55 @@ use Illuminate\Support\Facades\DB;
 
 class CourseService
 {
-    public function homeList()
+    public function homeList($filter = array())
     {
-        $data = ClassModel::public()
-            ->with(['courses' => function ($builder) {
-                $builder->where([
-                    ['is_public', 1],
-                    ['is_highlight', 1]
-                ])
+        $listCourseIds = $listCourseClassIds = $listCourseSubjectIds = [];
+        //sap xep theo lop
+        if (!empty($filter['group_by_class'])) {
+            $dataClassGroup = ClassModel::public()
+                ->with(['courses' => function ($builder){
+                    $builder->where([
+                        ['is_public', 1],
+                        ['is_highlight', 1]
+                    ])
                     ->orderByDesc('id');
             }])
             ->orderByDesc('order')
             ->get();
+            return ClassResource::collection($dataClassGroup);
+        }
+        //sap xep theo mon
+        if (!empty($filter['group_by_subject'])) {
+            $dataSubjectGroup = Subject::with(['courses' => function ($builder){
+                    $builder->where([
+                        ['is_public', 1]
+                    ])
+                    ->orderByDesc('id');
+            }])
+            ->orderByDesc('order')
+            ->get();
+            return SubjectResource::collection($dataSubjectGroup);
+        }
 
-        return ClassResource::collection($data);
+        //filter lop va mon
+        if (!empty($filter['class_id'])) {
+            $classId = $filter['class_id'];
+            $listCourseClassIds = CourseClass::where('class_id', $classId)
+                ->pluck('course_id')->toArray();
+        }
+        if (!empty($filter['subject_id'])) {
+            $subjectId = $filter['subject_id'];
+            $listCourseSubjectIds = CourseSubject::where('subject_id', $subjectId)
+                ->pluck('course_id')->toArray();
+        }
+        $listCourseIds = array_intersect($listCourseClassIds, $listCourseSubjectIds);
+        $data = Course::where('is_public', 1)->where('is_highlight', 1);
+        if (!empty($listCourseIds)) {
+            $data = $data->whereIn('id', $listCourseIds);
+        }
+        $data = $data->orderByDesc('id')->get();
+        return CourseResource::collection($data);
+
     }
 
     /**

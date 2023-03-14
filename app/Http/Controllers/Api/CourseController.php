@@ -27,8 +27,21 @@ class CourseController extends Controller
      */
     public function homeList(Request $request)
     {
+        $filter = [
+            'class_id' => $request->get('class_id'),
+            'subject_id' => $request->get('subject_id'),
+            'group_by_class' => $request->get('group_by_class'),
+            'group_by_subject' => $request->get('group_by_subject'),
+        ];
+        //check token by call to Api CMS
+        // $token = $request->get('token');
+        // if (!empty($token)) {
+            
+        // }
+
         try {
-            $data = $this->courseService->homeList();
+            $data = $this->courseService->homeList($filter);
+            // dd($data);
             $this->response->succeeded()->data($data);
         } catch (\Exception $exception) {
             $this->handleException($exception);
@@ -49,4 +62,5 @@ class CourseController extends Controller
 
         return $this->ok();
     }
+
 }

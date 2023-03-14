@@ -19,7 +19,7 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('home/courses', [
+Route::post('home/courses', [
     'as' => 'home.courses',
     'uses' => 'CourseController@homeList'
 ]);
