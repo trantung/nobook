@@ -405,29 +405,44 @@
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
- * {
+* {
 *     "success": 1,
 *     "message": null,
 *     "code": 0,
 *     "data": {
-*         "id": 1,
-*         "name": "Khóa học thí nghiệm khoa học tự nhiên lớp 6",
-*         "slug": "tunglaso1-khoa-hoc-le",
+*         "id": 2,
+*         "login": false,
+*         "name": "Khóa 1",
+*         "slug": "khoa-1",
 *         "type": "Khóa học lẻ",
-*         "desktop_avatar": "nobook63fe18679b81f.png",
-*         "mobile_avatar": "nobook63fe18679bb03.png",
-*         "intro_link": "https:*www.youtube.com/watch?v=fNs1VDbeI7E",
+*         "desktop_avatar": "https:*cms.nobook.asia/nobook64108c6e1dadb.png",
+*         "mobile_avatar": "https:*cms.nobook.asia/nobook64108c6e1dcea.png",
+*         "intro_link": "https:*antdv.com/components/notification/#Notification",
 *         "method": "Khóa video",
 *         "description": "mô tả ngắn",
-*         "detail": "<p><u>m&ocirc; tả chi tiết</u></p>",
-*         "result_content": "<p><strong>kết quả nhận được</strong></p>",
-*         "object_content": "<p><em>đối tượng học</em></p>",
+*         "detail": "<p>chi tiết kh&oacute;a học</p>",
+*         "result_content": "<p>kết quả</p>",
+*         "object_content": "<p>Đối tượng học</p>",
 *         "include_content": {
-*             "video_include": "content video",
-*             "access_include": "content mobile",
-*             "article_include": "content text",
-*             "certificate_include": "content cup"
+*             "video_include": "a",
+*             "access_include": "c",
+*             "article_include": "b",
+*             "certificate_include": "d"
 *         },
+*         "classes": [
+*             {
+*                 "id": 12,
+*                 "name": "Lớp 12",
+*                 "code": "lop12",
+*                 "level": "Cấp 3"
+*             },
+*             {
+*                 "id": 10,
+*                 "name": "Lớp 10",
+*                 "code": "lop10",
+*                 "level": "Cấp 3"
+*             }
+*         ],
 *         "sections": [
 *             {
 *                 "id": 8,
@@ -551,11 +566,36 @@
 *                         }
 *                     }
 *                 ]
+*             },
+*             {
+*                 "id": 10,
+*                 "name": "Chủ đề 3",
+*                 "data": []
+*             },
+*             {
+*                 "id": 11,
+*                 "name": "Chủ đề 4",
+*                 "data": []
+*             }
+*         ],
+*         "teachers": [
+*             {
+*                 "id": 2,
+*                 "name": "Khoa David",
+*                 "label": "Giáo viên tâm lý",
+*                 "avatar": "https:*cms.nobook.asia/nobook63fe17952d5ca.jpg",
+*                 "description": "<p>L&agrave; gi&aacute;o vi&ecirc;n trẻ v&agrave; lu&ocirc;n nhiệt t&igrave;nh với học sinh</p>"
+*             },
+*             {
+*                 "id": 3,
+*                 "name": "tung",
+*                 "label": "danh hieu",
+*                 "avatar": "https:*cms.nobook.asia/nobook6411a3ac1f1f5.png",
+*                 "description": "<p>mo ta ngan</p>"
 *             }
 *         ]
 *     }
 * }
-
  */
 
 /**
