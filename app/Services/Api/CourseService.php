@@ -5,6 +5,7 @@ namespace App\Services\Api;
 use App\Http\Resources\ClassResource;
 use App\Http\Resources\SubjectResource;
 use App\Http\Resources\CourseResource;
+use App\Http\Resources\CourseCmsResource;
 use App\Models\ClassModel;
 use App\Models\Subject;
 use App\Models\Course;
@@ -144,5 +145,70 @@ class CourseService
 
             return $courseSection;
         });
+    }
+
+    public function loadDetailSectionModuleCms(Course &$course)
+    {
+        $courseModules = CourseModule::query()
+            ->where(CourseModule::field('course'), $course->lms_id)
+            ->where(CourseModule::field('visible'), 1)
+            ->whereIn(CourseModule::field('section'), $course->lmsSections->pluck('id')->toArray())
+            ->join(Module::getMoodleTableName(), function (JoinClause $clause) use ($course) {
+                $clause->on(Module::field('id'), '=', CourseModule::field('module'));
+            })
+            ->where(Module::field('visible'), 1)
+            ->whereNotIn(Module::field('name'), Module::hidden())
+            ->select([
+                CourseModule::field('id'),
+                CourseModule::field('module'),
+                CourseModule::field('instance'),
+                CourseModule::field('section'),
+                Module::field('name'),
+            ])
+            ->get();
+            $moduleNames = $courseModules->pluck('name')->unique()->toArray();
+        foreach ($moduleNames as $moduleName) {
+            $ids = $courseModules->where('name', $moduleName)->pluck('instance')->toArray();
+            $moduleData = DB::connection('moodle')
+                ->table(moodle_table_name($moduleName))
+                ->whereIn('id', $ids)
+                ->get();
+            foreach ($moduleData as $moduleDetail) {
+                $courseModule = $courseModules
+                    ->where('name', $moduleName)
+                    ->where('instance', $moduleDetail->id)
+                    ->first();
+                if (!is_null($courseModule)) {
+                    $courseModule->detail = $moduleDetail;
+                }
+            }
+        }
+        // dd($course->toArray());
+        $course->lmsSections->each(function (CourseSection $courseSection) use ($courseModules) {
+            $courseSection->data = collect();
+            if ($courseSection->sequence) {
+                $ids = explode(',', $courseSection->sequence);
+                foreach ($ids as $id) {
+                    $courseModule = $courseModules->firstWhere('id', $id);
+                    if (!is_null($courseModule)) {
+                        $courseSection->data->push($courseModule);
+                    }
+                }
+            }
+            unset($courseSection->data);
+            return $courseSection;
+        });
+    }
+
+    public function list()
+    {
+        $data = Course::where('is_public', 1)
+            ->orderByDesc('id')
+            ->get();
+        foreach ($data as $course) {
+            $courseCms = $this->loadDetailSectionModuleCms($course);
+        }
+        return CourseCmsResource::collection($data);
+
     }
 }

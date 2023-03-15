@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Api;
+namespace App\Http\Controllers\Api\CMS;
 
 use App\Http\Controllers\Controller;
 use App\Libs\Traits\ApiResponse;
@@ -8,7 +8,7 @@ use App\Services\Api\CourseService;
 use App\Services\Api\CMS\UserService;
 use Illuminate\Http\Request;
 
-class CourseController extends Controller
+class CourseCMSController extends Controller
 {
     use ApiResponse;
 
@@ -16,26 +16,26 @@ class CourseController extends Controller
      * @var CourseService
      */
     protected $courseService;
-    protected $userService;
+    // protected $userService;
 
-    public function __construct(CourseService $courseService, UserService $userService)
+    public function __construct(CourseService $courseService)
     {
         $this->courseService = $courseService;
-        $this->userService = $userService;
+        // $this->userService = $userService;
     }
 
     /**
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
      */
-    public function homeList(Request $request)
+    public function list(Request $request)
     {
-        $filter = [
-            'class_id' => $request->get('class_id'),
-            'subject_id' => $request->get('subject_id'),
-            'group_by_class' => $request->get('group_by_class'),
-            'group_by_subject' => $request->get('group_by_subject'),
-        ];
+        // $filter = [
+        //     'class_id' => $request->get('class_id'),
+        //     'subject_id' => $request->get('subject_id'),
+        //     'group_by_class' => $request->get('group_by_class'),
+        //     'group_by_subject' => $request->get('group_by_subject'),
+        // ];
         // check token by call to Api CMS
         // if (!empty($request->bearerToken())) {
         //     try {
@@ -44,9 +44,8 @@ class CourseController extends Controller
         //         dd(11);
         //     }
         // }
-
         try {
-            $data = $this->courseService->homeList($filter);
+            $data = $this->courseService->list();
             // dd($data);
             $this->response->succeeded()->data($data);
         } catch (\Exception $exception) {
@@ -56,7 +55,7 @@ class CourseController extends Controller
         return $this->ok();
     }
 
-    public function detail($id,Request $request)
+    public function detail($id)
     {
         $login = false;
         //check token from frontend

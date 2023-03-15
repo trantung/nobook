@@ -394,7 +394,7 @@
  */
 
 /**
- * @api {get} /api/course/{id}/detail Request get course's detail
+ * @api {post} /api/course/{id}/detail Request get course's detail
  * @apiName getCourseDetail
  * @apiGroup Frontend
  *
@@ -558,5 +558,154 @@
 
  */
 
-
+/**
+ * @api {post} /api/cms/course/list Danh sách course cho cms
+ * @apiName CmsCourseList
+ * @apiGroup CMS
+ *
+ * @apiSuccess {Integer} status Status of response
+ * @apiSuccess {String} data  data response
+ *
+ * @apiSuccessExample Success-Response:
+ *     HTTP/1.1 200 OK
+*{
+*    "success": 1,
+*    "message": null,
+*    "code": 0,
+*    "data": [
+*        {
+*            "id": 4,
+*            "lms_id": 2,
+*            "name": "Khóa 3",
+*            "slug": "khoa-3",
+*            "sections": [
+*                {
+*                    "id": 1,
+*                    "name": "Thông báo",
+*                    "data": null
+*                },
+*                {
+*                    "id": 2,
+*                    "name": "Bài 1. Quy tắc cộng. Quy tắc nhân. Sơ đồ hình cây (P1)",
+*                    "data": null
+*                },
+*                {
+*                    "id": 3,
+*                    "name": "Bài 2. Quy tắc cộng. Quy tắc nhân. Sơ đồ hình cây (P2)",
+*                    "data": null
+*                },
+*                {
+*                    "id": 4,
+*                    "name": "Bài 3. Hoán vị. Chỉnh hợp. Tổ hợp (P1)",
+*                    "data": null
+*                },
+*                {
+*                    "id": 5,
+*                    "name": "Bài 4. Hoán vị. Chỉnh hợp. Tổ hợp (P2)",
+*                    "data": null
+*                }
+*            ]
+*        },
+*        {
+*            "id": 3,
+*            "lms_id": 4,
+*            "name": "Khóa 2",
+*            "slug": "khoa-2",
+*            "sections": [
+*                {
+*                    "id": 12,
+*                    "name": "Chủ đề 0",
+*                    "data": null
+*                },
+*                {
+*                    "id": 13,
+*                    "name": "Chủ đề mẫu",
+*                    "data": null
+*                },
+*                {
+*                    "id": 14,
+*                    "name": "Chủ đề 2",
+*                    "data": null
+*                },
+*                {
+*                    "id": 15,
+*                    "name": "Chủ đề 3",
+*                    "data": null
+*                },
+*                {
+*                    "id": 16,
+*                    "name": "Chủ đề 4",
+*                    "data": null
+*                }
+*            ]
+*        },
+*        {
+*            "id": 2,
+*            "lms_id": 3,
+*            "name": "Khóa 1",
+*            "slug": "khoa-1",
+*            "sections": [
+*                {
+*                    "id": 7,
+*                    "name": "Chủ đề 0",
+*                    "data": null
+*                },
+*                {
+*                    "id": 8,
+*                    "name": "Chủ đề 1 - Các phép đo",
+*                    "data": null
+*                },
+*                {
+*                    "id": 9,
+*                    "name": "Chủ đề 2 - Lực",
+*                    "data": null
+*                },
+*                {
+*                    "id": 10,
+*                    "name": "Chủ đề 3",
+*                    "data": null
+*                },
+*                {
+*                    "id": 11,
+*                    "name": "Chủ đề 4",
+*                    "data": null
+*                }
+*            ]
+*        },
+*        {
+*            "id": 1,
+*            "lms_id": 3,
+*            "name": "Khóa học thí nghiệm khoa học tự nhiên lớp 6",
+*            "slug": "tunglaso1-khoa-hoc-le",
+*            "sections": [
+*                {
+*                    "id": 7,
+*                    "name": "Chủ đề 0",
+*                    "data": null
+*                },
+*                {
+*                    "id": 8,
+*                    "name": "Chủ đề 1 - Các phép đo",
+*                    "data": null
+*                },
+*                {
+*                    "id": 9,
+*                    "name": "Chủ đề 2 - Lực",
+*                    "data": null
+*                },
+*                {
+*                    "id": 10,
+*                    "name": "Chủ đề 3",
+*                    "data": null
+*                },
+*                {
+*                    "id": 11,
+*                    "name": "Chủ đề 4",
+*                    "data": null
+*                }
+*            ]
+*        }
+*    ]
+*}
+ */
 ?>

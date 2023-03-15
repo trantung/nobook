@@ -24,8 +24,8 @@ class UserService
      */
     public function getUserInfo(Request $request)
     {
-        $response = CMSApi::userInfo($request->bearerToken());
 
+        $response = CMSApi::userInfo($request->bearerToken());
         return json_decode($response->getBody()->getContents());
     }
 }

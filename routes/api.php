@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Api\CMS\UserController;
+use App\Http\Controllers\Api\CMS\CourseCMSController;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,12 +24,20 @@ Route::post('home/courses', [
     'as' => 'home.courses',
     'uses' => 'CourseController@homeList'
 ]);
-Route::get('course/{id}/detail', [
+Route::post('course/{id}/detail', [
+    'as' => 'courses.detail',
+    'uses' => 'CourseController@detail'
+]);
+//api for cms
+Route::post('course/{id}/detail', [
     'as' => 'courses.detail',
     'uses' => 'CourseController@detail'
 ]);
 
 Route::group(['prefix' => 'cms'], function () {
+    Route::post('course/list', [CourseCMSController::class, 'list']);
     Route::post('login', [UserController::class, 'login']);
     Route::get('user-info', [UserController::class, 'userInfo']);
 });
+
+
