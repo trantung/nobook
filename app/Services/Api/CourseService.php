@@ -36,6 +36,7 @@ class CourseService
             }])
             ->orderByDesc('order')
             ->get();
+            $dataClassGroup->login = $filter['login'];
             return ClassResource::collection($dataClassGroup);
         }
         //sap xep theo mon
@@ -76,17 +77,21 @@ class CourseService
      * @param int $id
      * @return CourseResource
      */
-    public function detail(int $id)
+    public function detail(int $id, $login = null)
     {
         /** @var Course $course */
         $course = Course::query()->findOrFail($id)->load('classes');
+        $course->login = false;
+        if ($login) {
+            $course->login = true;
+        }
         $course->load(['lmsSections' => function ($query) {
             $query->where('visible', 1)
                 ->where('section', '<>', 0)
                 ->orderBy('section');
         }]);
         $this->loadDetailSectionModule($course);
-
+        // dd($course->toArray());
         return new CourseResource($course);
     }
 

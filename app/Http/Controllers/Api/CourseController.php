@@ -30,21 +30,23 @@ class CourseController extends Controller
      */
     public function homeList(Request $request)
     {
+        
+        // check token by call to Api CMS
+        if (!empty($request->bearerToken())) {
+            try {
+                $response = $this->userService->getUserInfo($request);
+                $login = true;
+            } catch (\Exception $e) {
+                $login = false;
+            }
+        }
         $filter = [
             'class_id' => $request->get('class_id'),
             'subject_id' => $request->get('subject_id'),
             'group_by_class' => $request->get('group_by_class'),
             'group_by_subject' => $request->get('group_by_subject'),
+            'login' => $login
         ];
-        // check token by call to Api CMS
-        // if (!empty($request->bearerToken())) {
-        //     try {
-        //         $response = $this->userService->getUserInfo($request);
-        //     } catch (\Exception $e) {
-        //         dd(11);
-        //     }
-        // }
-
         try {
             $data = $this->courseService->homeList($filter);
             // dd($data);
@@ -58,17 +60,18 @@ class CourseController extends Controller
 
     public function detail($id,Request $request)
     {
-        $login = false;
         //check token from frontend
+        $login = false;
         if (!empty($request->bearerToken())) {
             try {
                 $response = $this->userService->getUserInfo($request);
-            } catch (\Exception $e) {
                 $login = true;
+            } catch (\Exception $e) {
+
             }
         }
         try {
-            $data = $this->courseService->detail($id);
+            $data = $this->courseService->detail($id, $login);
             $this->response->succeeded()->data($data);
         } catch (\Exception $exception) {
             dd($exception);
