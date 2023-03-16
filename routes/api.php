@@ -29,11 +29,6 @@ Route::post('course/{id}/detail', [
     'uses' => 'CourseController@detail'
 ]);
 //api for cms
-Route::post('course/{id}/detail', [
-    'as' => 'courses.detail',
-    'uses' => 'CourseController@detail'
-]);
-
 Route::group(['prefix' => 'cms'], function () {
     Route::post('course/list', [CourseCMSController::class, 'list']);
     Route::post('login', [UserController::class, 'login']);

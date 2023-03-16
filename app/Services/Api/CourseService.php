@@ -14,6 +14,7 @@ use App\Models\CourseSubject;
 use App\Models\LMS\CourseModule;
 use App\Models\LMS\CourseSection;
 use App\Models\LMS\Module;
+use App\Services\Api\CMS\UserService;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Query\JoinClause;
 use Illuminate\Http\Request;
@@ -21,77 +22,110 @@ use Illuminate\Support\Facades\DB;
 
 class CourseService
 {
-    public function homeList($filter = array())
+    /**
+     * @var bool
+     */
+    protected $hasUserLoggedin = null;
+
+    /**
+     * @param Request $request
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    public function homeList(Request $request)
     {
-        $listCourseIds = $listCourseClassIds = $listCourseSubjectIds = [];
         //sap xep theo lop
-        if (!empty($filter['group_by_class'])) {
-            $dataClassGroup = ClassModel::public()
-                ->with(['courses' => function ($builder){
-                    $builder->where([
-                        ['is_public', 1],
-                        ['is_highlight', 1]
-                    ])
-                    ->orderByDesc('id');
-            }])
-            ->orderByDesc('order')
-            ->get();
-            $dataClassGroup->login = $filter['login'];
-            return ClassResource::collection($dataClassGroup);
+        if (isset($request->group_by_class)) {
+            return $this->listByClass();
         }
+
         //sap xep theo mon
-        if (!empty($filter['group_by_subject'])) {
-            $dataSubjectGroup = Subject::with(['courses' => function ($builder){
-                    $builder->where([
-                        ['is_public', 1]
-                    ])
-                    ->orderByDesc('id');
-            }])
-            ->orderByDesc('order')
-            ->get();
-            return SubjectResource::collection($dataSubjectGroup);
+        if (isset($request->group_by_subject)) {
+            return $this->listBySubject();
         }
 
         //filter lop va mon
-        if (!empty($filter['class_id'])) {
-            $classId = $filter['class_id'];
-            $listCourseClassIds = CourseClass::where('class_id', $classId)
-                ->pluck('course_id')->toArray();
-        }
-        if (!empty($filter['subject_id'])) {
-            $subjectId = $filter['subject_id'];
-            $listCourseSubjectIds = CourseSubject::where('subject_id', $subjectId)
-                ->pluck('course_id')->toArray();
-        }
-        $listCourseIds = array_intersect($listCourseClassIds, $listCourseSubjectIds);
-        $data = Course::where('is_public', 1)->where('is_highlight', 1);
-        if (!empty($listCourseIds)) {
-            $data = $data->whereIn('id', $listCourseIds);
-        }
-        $data = $data->orderByDesc('id')->get();
-        return CourseResource::collection($data);
+        $query = Course::query()
+            ->where([
+                ['is_public', 1],
+                ['is_highlight', 1]
+            ]);
 
+        if (isset($request->class_id)) {
+            $query->join('course_class', 'courses.id', '=', 'course_class.course_id')
+                ->where('course_class.class_id', $request->class_id);
+        }
+        if (isset($request->subject_id)) {
+            $query->join('course_subject', 'courses.id', '=', 'course_subject.course_id')
+                ->where('course_subject.subject_id', $request->subject_id);
+        }
+
+        $data = $query
+            ->with('classes')
+            ->orderByDesc('id')
+            ->selectRaw('courses.*')
+            ->with('teachers')
+            ->get();
+
+        return CourseResource::collection($data);
+    }
+
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    protected function listByClass()
+    {
+        $dataClassGroup = ClassModel::public()
+            ->with(['courses' => function ($builder) {
+                $builder->where([
+                    ['is_public', 1],
+                    ['is_highlight', 1]
+                ])
+                    ->orderByDesc('id');
+            }])
+            ->orderByDesc('order')
+            ->get();
+
+        return ClassResource::collection($dataClassGroup);
+    }
+
+    /**
+     * @return \Illuminate\Http\Resources\Json\AnonymousResourceCollection
+     */
+    protected function listBySubject()
+    {
+        $dataSubjectGroup = Subject::query()
+            ->with(['courses' => function ($builder) {
+                $builder->where([
+                    ['is_public', 1],
+                    ['is_highlight', 1]
+                ])
+                    ->orderByDesc('id');
+            }])
+            ->orderByDesc('order')
+            ->get();
+
+        return SubjectResource::collection($dataSubjectGroup);
     }
 
     /**
      * @param int $id
      * @return CourseResource
      */
-    public function detail(int $id, $login = null)
+    public function detail(int $id): CourseResource
     {
         /** @var Course $course */
-        $course = Course::query()->findOrFail($id)->load('classes');
-        $course->login = false;
-        if ($login) {
-            $course->login = true;
-        }
+        $course = Course::query()
+            ->findOrFail($id)
+            ->load(['classes', 'teachers']);
+
         $course->load(['lmsSections' => function ($query) {
             $query->where('visible', 1)
                 ->where('section', '<>', 0)
                 ->orderBy('section');
         }]);
         $this->loadDetailSectionModule($course);
-        // dd($course->toArray());
+        $course->login = $this->hasUserLoggedin();
+
         return new CourseResource($course);
     }
 
@@ -214,6 +248,27 @@ class CourseService
             $courseCms = $this->loadDetailSectionModuleCms($course);
         }
         return CourseCmsResource::collection($data);
+    }
 
+    /**
+     * @return bool
+     */
+    protected function hasUserLoggedin(): bool
+    {
+        if (!is_bool($this->hasUserLoggedin)) {
+            if (request()->bearerToken()) {
+                try {
+                    $userData = (new UserService())->getUserInfo(request());
+                    if ($userData) {
+                        $this->hasUserLoggedin = true;
+                    }
+                } catch (\Exception $e) {
+
+                }
+            }
+            $this->hasUserLoggedin = false;
+        }
+
+        return $this->hasUserLoggedin;
     }
 }
