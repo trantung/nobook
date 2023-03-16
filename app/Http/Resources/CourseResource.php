@@ -16,26 +16,14 @@ class CourseResource extends JsonResource
      */
     public function toArray($request): array
     {
-        // dd($request->id);
-        $teacherData = [];
-        $baseUrl = url('/') . '/';
-        $teacherIds = CourseTeacher::where('course_id', $request->id)->pluck('teacher_id')->toArray();
-        $teachers = Teacher::whereIn('id', $teacherIds)->get();
-        foreach ($teachers as $key => $teacher) {
-            $teacherData[$key]['id'] = $teacher->id;
-            $teacherData[$key]['name'] = $teacher->name;
-            $teacherData[$key]['label'] = $teacher->label;
-            $teacherData[$key]['avatar'] = $baseUrl . $teacher->avatar;
-            $teacherData[$key]['description'] = $teacher->description;
-        }
         return [
             'id' => $this->id,
             'login' => $this->login,
             'name' => $this->name,
             'slug' => $this->slug,
             'type' => $this->getTypeName(),
-            'desktop_avatar' => $baseUrl . $this->desktop_avatar,
-            'mobile_avatar' => $baseUrl . $this->mobile_avatar,
+            'desktop_avatar' => $this->getDesktopAvatar(),
+            'mobile_avatar' => $this->getMobileAvatar(),
             'intro_link' => $this->intro_link,
             'method' => $this->getMethodName(),
 //            'is_public' => $this->is_public,
@@ -47,7 +35,7 @@ class CourseResource extends JsonResource
             'include_content' => $this->getIncludeContent(),
             'classes' => ClassResource::collection($this->whenLoaded('classes')),
             'sections' => CourseSectionResource::collection($this->whenLoaded('lmsSections')),
-            'teachers' => $teacherData,
+            'teachers' => TeacherResource::collection($this->whenLoaded('teachers')),
         ];
     }
 }

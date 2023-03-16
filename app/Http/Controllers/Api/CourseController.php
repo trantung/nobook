@@ -30,26 +30,8 @@ class CourseController extends Controller
      */
     public function homeList(Request $request)
     {
-        
-        // check token by call to Api CMS
-        if (!empty($request->bearerToken())) {
-            try {
-                $response = $this->userService->getUserInfo($request);
-                $login = true;
-            } catch (\Exception $e) {
-                $login = false;
-            }
-        }
-        $filter = [
-            'class_id' => $request->get('class_id'),
-            'subject_id' => $request->get('subject_id'),
-            'group_by_class' => $request->get('group_by_class'),
-            'group_by_subject' => $request->get('group_by_subject'),
-            'login' => $login
-        ];
         try {
-            $data = $this->courseService->homeList($filter);
-            // dd($data);
+            $data = $this->courseService->homeList($request);
             $this->response->succeeded()->data($data);
         } catch (\Exception $exception) {
             $this->handleException($exception);
@@ -58,23 +40,17 @@ class CourseController extends Controller
         return $this->ok();
     }
 
-    public function detail($id,Request $request)
+    /**
+     * @param $id
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function detail($id, Request $request)
     {
-        //check token from frontend
-        $login = false;
-        if (!empty($request->bearerToken())) {
-            try {
-                $response = $this->userService->getUserInfo($request);
-                $login = true;
-            } catch (\Exception $e) {
-
-            }
-        }
         try {
-            $data = $this->courseService->detail($id, $login);
+            $data = $this->courseService->detail($id);
             $this->response->succeeded()->data($data);
         } catch (\Exception $exception) {
-            dd($exception);
             $this->handleException($exception);
         }
 
