@@ -28,6 +28,14 @@ Route::post('course/{id}/detail', [
     'as' => 'courses.detail',
     'uses' => 'CourseController@detail'
 ]);
+Route::get('home/class/list', [
+    'as' => 'home.class_list',
+    'uses' => 'CourseController@classList'
+]);
+Route::get('home/subject/list', [
+    'as' => 'home.subject_list',
+    'uses' => 'CourseController@subjectList'
+]);
 //api for cms
 Route::group(['prefix' => 'cms'], function () {
     Route::post('course/list', [CourseCMSController::class, 'list']);
