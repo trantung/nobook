@@ -599,7 +599,7 @@
  */
 
 /**
- * @api {get} /api/home/class/list Danh sách lớp
+ * @api {get} /api/home/class/list Danh sách lớp và môn học
  * @apiName HomeGetClassList
  * @apiGroup Frontend
  * @apiSuccess {Integer} status Status of response
@@ -607,61 +607,77 @@
  *
  * @apiSuccessExample Success-Response:
  *     HTTP/1.1 200 OK
-*{
-*    "success": 1,
-*    "message": null,
-*    "code": 0,
-*    "data": [
-*        {
-*            "id": 1,
-*            "name": "Lớp 1"
-*        },
-*        {
-*            "id": 2,
-*            "name": "Lớp 2"
-*        },
-*        {
-*            "id": 3,
-*            "name": "Lớp 3"
-*        },
-*        {
-*            "id": 4,
-*            "name": "Lớp 4"
-*        },
-*        {
-*            "id": 5,
-*            "name": "Lớp 5"
-*        },
-*        {
-*            "id": 6,
-*            "name": "Lớp 6"
-*        },
-*        {
-*            "id": 7,
-*            "name": "Lớp 8"
-*        },
-*        {
-*            "id": 8,
-*            "name": "Lớp 7"
-*        },
-*        {
-*            "id": 9,
-*            "name": "Lớp 9"
-*        },
-*        {
-*            "id": 10,
-*            "name": "Lớp 10"
-*        },
-*        {
-*            "id": 11,
-*            "name": "Lớp 11"
-*        },
-*        {
-*            "id": 12,
-*            "name": "Lớp 12"
-*        }
-*    ]
-*}
+* {
+*     "success": 1,
+*     "message": null,
+*     "code": 0,
+*     "data": {
+*         "class": [
+*             {
+*                 "id": 1,
+*                 "name": "Lớp 1"
+*             },
+*             {
+*                 "id": 2,
+*                 "name": "Lớp 2"
+*             },
+*             {
+*                 "id": 3,
+*                 "name": "Lớp 3"
+*             },
+*             {
+*                 "id": 4,
+*                 "name": "Lớp 4"
+*             },
+*             {
+*                 "id": 5,
+*                 "name": "Lớp 5"
+*             },
+*             {
+*                 "id": 6,
+*                 "name": "Lớp 6"
+*             },
+*             {
+*                 "id": 7,
+*                 "name": "Lớp 8"
+*             },
+*             {
+*                 "id": 8,
+*                 "name": "Lớp 7"
+*             },
+*             {
+*                 "id": 9,
+*                 "name": "Lớp 9"
+*             },
+*             {
+*                 "id": 10,
+*                 "name": "Lớp 10"
+*             },
+*             {
+*                 "id": 11,
+*                 "name": "Lớp 11"
+*             },
+*             {
+*                 "id": 12,
+*                 "name": "Lớp 12"
+*             }
+*         ],
+*         "subject": [
+*             {
+*                 "id": 1,
+*                 "name": "Toán"
+*             },
+*             {
+*                 "id": 2,
+*                 "name": "Lý"
+*             },
+*             {
+*                 "id": 3,
+*                 "name": "Hóa"
+*             }
+*         ]
+*     }
+* }
  */
 /**
  * @api {get} /api/home/subject/list Danh sách môn

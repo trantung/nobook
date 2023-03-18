@@ -66,7 +66,7 @@ class CourseController extends Controller
     public function classList(Request $request)
     {
         try {
-            $data = $this->classService->classList($request);
+            $data = $this->classService->classSubjectList($request);
             $this->response->succeeded()->data($data);
         } catch (\Exception $exception) {
             $this->handleException($exception);
